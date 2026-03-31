@@ -10,11 +10,21 @@ body{font-family:-apple-system;background:#f5f5f7;margin:0;}
 .fixed{position:sticky;top:0;background:#fff;padding:12px;border-bottom:1px solid #eee;font-size:14px;z-index:999;}
 .container{padding:20px;}
 .card{background:#fff;padding:20px;border-radius:16px;margin-bottom:20px;}
-button{width:100%;padding:15px;margin:6px 0;border:none;border-radius:10px;background:#111;color:#fff;}
-.confirm{background:#c9a100;color:#000;}
+
+button{
+ width:100%;padding:15px;margin:6px 0;border:none;
+ border-radius:10px;background:#111;color:#fff;
+}
+
+.confirm{background:#c9a100;color:#000;font-weight:bold;}
 .recommend{border:2px solid #c9a100;}
 .gold{background:linear-gradient(45deg,#c9a100,#ffd700);color:#000;}
-.preview{background:#f0f0f0;padding:10px;border-radius:10px;margin:10px 0;font-weight:bold;}
+
+.preview{
+ background:#f0f0f0;padding:10px;border-radius:10px;margin:10px 0;
+ font-weight:bold;
+}
+
 .hidden{display:none;}
 .result{font-size:22px;font-weight:bold;text-align:center;}
 </style>
@@ -44,15 +54,15 @@ button{width:100%;padding:15px;margin:6px 0;border:none;border-radius:10px;backg
 <h2>STEP2：研磨</h2>
 
 <button onclick="previewPolish('light')">
-Light（1行程）<br><small>新車・軽度向け</small>
+Light（1行程）<br><small>新車・軽度</small>
 </button>
 
 <button onclick="previewPolish('standard')">
-Standard（2行程）<br><small>バランス重視</small>
+Standard（2行程）<br><small>バランス</small>
 </button>
 
 <button class="recommend" onclick="previewPolish('premium')">
-⭐ Premium（3行程）<br><small>艶・仕上がり重視</small>
+⭐ Premium（3行程）<br><small>艶重視</small>
 </button>
 
 <div id="polishPreview" class="preview hidden"></div>
@@ -72,12 +82,37 @@ Standard（2行程）<br><small>バランス重視</small>
 
 <button onclick="previewCoat(38000,'EX')">EX ¥38,000</button>
 
-<button class="gold" onclick="previewCoat(140000,'G\'ZOX ハイモース')">
-🌟 G'ZOX ハイモース ¥140,000
-</button>
+<!-- ハイモース別演出 -->
+<div style="margin-top:20px;padding:15px;border-radius:12px;background:#111;color:#fff;">
+  <div style="font-size:18px;font-weight:bold;">🌟 G'ZOX ハイモース</div>
+  <div style="font-size:13px;opacity:0.8;margin:8px 0;">
+    最高峰の艶と存在感を求める方へ
+  </div>
+  <button class="gold" onclick="openHi()">検討する</button>
+</div>
 
 <div id="coatPreview" class="preview hidden"></div>
 <button id="coatBtn" class="confirm hidden" onclick="confirmCoat()">確定</button>
+</div>
+
+<!-- ハイモース画面 -->
+<div id="hiPage" class="card hidden">
+<h2>🌟 G'ZOX ハイモース</h2>
+
+<div class="preview">
+圧倒的な艶と深み<br>完全別格の仕上がり
+</div>
+
+<div style="margin:10px 0;">
+✔ 高密度被膜<br>
+✔ 圧倒的光沢<br>
+✔ 長期耐久
+</div>
+
+<div style="font-size:20px;font-weight:bold;">¥140,000</div>
+
+<button class="gold" onclick="selectHi()">この内容で選択</button>
+<button onclick="backStep3()" style="background:#ccc;color:#000;">戻る</button>
 </div>
 
 <!-- RESULT -->
@@ -91,7 +126,6 @@ Standard（2行程）<br><small>バランス重視</small>
 <script>
 
 let total=0;
-
 let sizeType="";
 let sizeText="";
 let polishPrice=0;
@@ -117,39 +151,22 @@ function confirmSize(){
  next("step1","step2");
 }
 
-// 研磨価格（サイズ連動）
-function getPolishPrice(type){
- if(sizeType=="s"){
-   if(type=="light") return 41800;
-   if(type=="standard") return 52800;
-   if(type=="premium") return 63800;
- }
- if(sizeType=="m"){
-   if(type=="light") return 49500;
-   if(type=="standard") return 60500;
-   if(type=="premium") return 71500;
- }
- if(sizeType=="l"){
-   if(type=="light") return 57200;
-   if(type=="standard") return 68200;
-   if(type=="premium") return 79200;
- }
- if(sizeType=="2l"){
-   if(type=="light") return 64900;
-   if(type=="standard") return 75900;
-   if(type=="premium") return 86900;
- }
+// 研磨価格
+function getPolish(type){
+ if(sizeType=="s"){if(type=="light")return 41800;if(type=="standard")return 52800;if(type=="premium")return 63800;}
+ if(sizeType=="m"){if(type=="light")return 49500;if(type=="standard")return 60500;if(type=="premium")return 71500;}
+ if(sizeType=="l"){if(type=="light")return 57200;if(type=="standard")return 68200;if(type=="premium")return 79200;}
+ if(sizeType=="2l"){if(type=="light")return 64900;if(type=="standard")return 75900;if(type=="premium")return 86900;}
 }
 
 // 研磨
-function previewPolish(type){
-
- polishPrice = getPolishPrice(type);
+function previewPolish(t){
+ polishPrice=getPolish(t);
 
  let text="";
- if(type=="light") text="1行程（軽研磨）";
- if(type=="standard") text="2行程（中研磨）";
- if(type=="premium") text="3行程（仕上げ研磨）";
+ if(t=="light") text="1行程";
+ if(t=="standard") text="2行程";
+ if(t=="premium") text="3行程";
 
  document.getElementById("polishPreview").innerText=
  text+"：¥"+polishPrice.toLocaleString();
@@ -166,14 +183,37 @@ function confirmPolish(){
 }
 
 // コーティング
-function previewCoat(price,name){
- coatPrice=price;
+function previewCoat(p,name){
+ coatPrice=p;
 
  document.getElementById("coatPreview").innerText=
- name+"：¥"+price.toLocaleString();
+ name+"：¥"+p.toLocaleString();
 
  document.getElementById("coatPreview").classList.remove("hidden");
  document.getElementById("coatBtn").classList.remove("hidden");
+
+ updateBar();
+}
+
+// ハイモース
+function openHi(){
+ next("step3","hiPage");
+}
+
+function backStep3(){
+ next("hiPage","step3");
+}
+
+function selectHi(){
+ coatPrice=140000;
+
+ document.getElementById("coatPreview").innerText=
+ "G'ZOX ハイモース：¥140,000";
+
+ document.getElementById("coatPreview").classList.remove("hidden");
+ document.getElementById("coatBtn").classList.remove("hidden");
+
+ next("hiPage","step3");
 
  updateBar();
 }
@@ -192,15 +232,14 @@ function next(a,b){
  document.getElementById(b).classList.remove("hidden");
 }
 
-// 上部表示
+// 上部バー
 function updateBar(){
  let sum = polishPrice + coatPrice;
 
- let text = sizeText;
- if(polishPrice) text += " / 研磨";
- if(coatPrice) text += " / コーティング";
-
- if(sum>0) text += " ｜ 約"+sum.toLocaleString()+"円";
+ let text=sizeText;
+ if(polishPrice) text+=" / 研磨";
+ if(coatPrice) text+=" / コーティング";
+ if(sum>0) text+=" ｜ 約"+sum.toLocaleString()+"円";
 
  let bar=document.getElementById("fixedBar");
  bar.innerText=text;
