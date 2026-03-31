@@ -63,37 +63,39 @@ button{
 <!-- STEP1 -->
 <div id="step1" class="card">
 <h2>STEP1：サイズ</h2>
-<div class="desc">お車サイズを選択してください</div>
+<div class="desc">サイズを選ぶと代表車種が表示されます</div>
 
-<button onclick="selectSize(0)">S</button>
-<button onclick="selectSize(7700)">M</button>
-<button onclick="selectSize(15400)">L</button>
-<button onclick="selectSize(23100)">2L</button>
+<button onclick="selectSize(0);showCar('s')">S（軽自動車）</button>
+<button onclick="selectSize(7700);showCar('m')">M（小型普通車）</button>
+<button onclick="selectSize(15400);showCar('l')">L（普通車・SUV・ミニバン）</button>
+<button onclick="selectSize(23100);showCar('2l')">2L（大型）</button>
+
+<div id="carExample" class="desc"></div>
 </div>
 
 <!-- STEP2 -->
 <div id="step2" class="card hidden">
-<h2>STEP2：研磨（仕上がりの質）</h2>
+<h2>STEP2：研磨</h2>
 
 <button onclick="toggle('p1')">Light ▼</button>
 <div id="p1" class="desc hidden">
-軽研磨でくすみ改善<br>
+新車・納車から1年未満のお車におすすめ<br>
+軽度のくすみや汚れを整えます<br>
 <button onclick="selectPolish(41800)">この内容で選択</button>
 </div>
 
 <button onclick="toggle('p2')">Standard ▼</button>
 <div id="p2" class="desc hidden">
-2工程研磨で小傷除去<br>
+2工程研磨で小傷やくすみをバランスよく除去<br>
 <button onclick="selectPolish(52800)">この内容で選択</button>
 </div>
 
-<!-- ⭐Premium（推し） -->
 <button class="recommend" onclick="toggle('p3')">
 ⭐ Premium（おすすめ）▼
 </button>
 <div id="p3" class="desc">
-3工程研磨で新車以上の艶<br>
-最も人気の仕上がり<br>
+3工程研磨でより高い艶と仕上がりを実現<br>
+仕上がり重視の方におすすめ<br>
 <button onclick="selectPolish(63800)">この内容で選択</button>
 </div>
 
@@ -104,24 +106,38 @@ button{
 <h2>STEP3：コーティング</h2>
 
 <button onclick="selectCoat(16500)">Basic</button>
-<div class="desc">手軽に綺麗を維持</div>
+<div class="desc">
+撥水性能を付与し日常の汚れを落としやすくします<br>
+コストを抑えたい方におすすめ
+</div>
 
 <button onclick="selectCoat(22000)">Standard</button>
-<div class="desc">バランス重視</div>
+<div class="desc">
+艶・撥水・防汚のバランスが良い人気プラン<br>
+初めての方にもおすすめ
+</div>
 
-<!-- ⭐Premium（推し） -->
 <button class="recommend" onclick="selectCoat(27500)">
 ⭐ Premium（おすすめ）
 </button>
-<div class="desc">艶・耐久ともに高評価</div>
+<div class="desc">
+高い艶感と耐久性を両立<br>
+長く綺麗に乗りたい方に最適
+</div>
 
 <button onclick="selectCoat(38000)">EX</button>
-<div class="desc">さらに上の仕上がり</div>
+<div class="desc">
+Premiumをベースにさらに艶・防汚性能を強化<br>
+より仕上がりにこだわる方向け
+</div>
 
 <button class="gold" onclick="selectCoat(200000)">
-🌟 ハイモース
+🌟 G'ZOX ハイモース
 </button>
-<div class="desc">完全別格の仕上がり</div>
+<div class="desc">
+完全別格のコーティング<br>
+圧倒的な艶・存在感・所有満足
+</div>
 
 </div>
 
@@ -136,11 +152,33 @@ button{
 
 let total = 0;
 
+// サイズごとの車種表示
+function showCar(type){
+  let text = "";
+
+  if(type == "s"){
+    text = "例：N-BOX・タント・ワゴンR";
+  }
+  if(type == "m"){
+    text = "例：プリウス・カローラ・ノート";
+  }
+  if(type == "l"){
+    text = "例：アルファード・ハリアー・ヴォクシー";
+  }
+  if(type == "2l"){
+    text = "例：ハイエース・ランクル・キャラバン";
+  }
+
+  document.getElementById("carExample").innerText = text;
+}
+
+// 開閉
 function toggle(id){
   let el = document.getElementById(id);
   el.classList.toggle("hidden");
 }
 
+// 選択
 function selectSize(price){
   total += price;
   document.getElementById("step1").classList.add("hidden");
