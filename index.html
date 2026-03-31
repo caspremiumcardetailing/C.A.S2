@@ -39,35 +39,20 @@ button{
   color:#fff;
 }
 
+.recommend{
+  border:2px solid #c9a100;
+}
+
 .gold{
   background:linear-gradient(45deg,#c9a100,#ffd700);
   color:#000;
 }
 
-input{
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  border:1px solid #ccc;
-}
+.hidden{ display:none; }
 
 .result{
   font-size:22px;
   font-weight:bold;
-  text-align:center;
-}
-
-.hidden{ display:none; }
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:10px;
-}
-
-th,td{
-  border-bottom:1px solid #eee;
-  padding:8px;
   text-align:center;
 }
 </style>
@@ -75,122 +60,87 @@ th,td{
 
 <body>
 
-<!-- 車種入力 -->
-<div class="card">
-<h2>車種を入力</h2>
-<div class="desc">例：プリウス・アルファードなど</div>
-<input type="text" id="car">
-<button onclick="autoSelect()">サイズ自動判定</button>
-</div>
-
 <!-- STEP1 -->
 <div id="step1" class="card">
-<h2>STEP1：サイズ選択</h2>
-<div class="desc">お車の大きさに応じて価格が変わります</div>
-<button onclick="selectSize(0)">S（軽）</button>
-<button onclick="selectSize(7700)">M（セダン）</button>
-<button onclick="selectSize(15400)">L（ミニバン）</button>
-<button onclick="selectSize(23100)">2L（大型）</button>
+<h2>STEP1：サイズ</h2>
+<div class="desc">お車サイズを選択してください</div>
+
+<button onclick="selectSize(0)">S</button>
+<button onclick="selectSize(7700)">M</button>
+<button onclick="selectSize(15400)">L</button>
+<button onclick="selectSize(23100)">2L</button>
 </div>
 
 <!-- STEP2 -->
 <div id="step2" class="card hidden">
-<h2>STEP2：研磨</h2>
-<div class="desc">仕上がりの美しさはここで決まります</div>
+<h2>STEP2：研磨（仕上がりの質）</h2>
 
-<button onclick="toggle('p1')">Light（軽研磨）</button>
+<button onclick="toggle('p1')">Light ▼</button>
 <div id="p1" class="desc hidden">
-洗車・スケール除去・鉄粉除去＋軽研磨<br>軽度のくすみ改善
-</div>
+軽研磨でくすみ改善<br>
 <button onclick="selectPolish(41800)">この内容で選択</button>
+</div>
 
-<button onclick="toggle('p2')">Standard（2工程）</button>
+<button onclick="toggle('p2')">Standard ▼</button>
 <div id="p2" class="desc hidden">
-2工程研磨で小傷・くすみを除去
-</div>
+2工程研磨で小傷除去<br>
 <button onclick="selectPolish(52800)">この内容で選択</button>
-
-<button onclick="toggle('p3')">Premium（3工程）</button>
-<div id="p3" class="desc hidden">
-3工程研磨で新車以上の艶へ
 </div>
+
+<!-- ⭐Premium（推し） -->
+<button class="recommend" onclick="toggle('p3')">
+⭐ Premium（おすすめ）▼
+</button>
+<div id="p3" class="desc">
+3工程研磨で新車以上の艶<br>
+最も人気の仕上がり<br>
 <button onclick="selectPolish(63800)">この内容で選択</button>
+</div>
 
 </div>
 
 <!-- STEP3 -->
 <div id="step3" class="card hidden">
 <h2>STEP3：コーティング</h2>
-<div class="desc">ご予算や仕上がりに合わせてお選びください</div>
 
 <button onclick="selectCoat(16500)">Basic</button>
-<div class="desc">手軽に綺麗を維持したい方向け</div>
+<div class="desc">手軽に綺麗を維持</div>
 
 <button onclick="selectCoat(22000)">Standard</button>
-<div class="desc">バランスの良い人気プラン</div>
+<div class="desc">バランス重視</div>
 
-<button onclick="selectCoat(27500)">Premium</button>
-<div class="desc">艶・耐久を重視する方向け</div>
+<!-- ⭐Premium（推し） -->
+<button class="recommend" onclick="selectCoat(27500)">
+⭐ Premium（おすすめ）
+</button>
+<div class="desc">艶・耐久ともに高評価</div>
 
 <button onclick="selectCoat(38000)">EX</button>
-<div class="desc">ワンランク上の仕上がり</div>
+<div class="desc">さらに上の仕上がり</div>
 
 <button class="gold" onclick="selectCoat(200000)">
-🌟 Signature（ハイモース）
+🌟 ハイモース
 </button>
-<div class="desc">圧倒的な艶と所有満足</div>
-
-<!-- 比較表 -->
-<div class="desc">
-すべてのプランで十分な性能があります。用途に応じてお選びください。
-</div>
-
-<table>
-<tr><th>プラン</th><th>特徴</th><th>おすすめ</th></tr>
-<tr><td>Basic</td><td>手軽に綺麗</td><td>コスパ重視</td></tr>
-<tr><td>Premium</td><td>艶と耐久</td><td>長く乗る方</td></tr>
-<tr><td>EX</td><td>高い艶と防汚</td><td>仕上がり重視</td></tr>
-<tr><td>ハイモース</td><td>別格の仕上がり</td><td>最高品質</td></tr>
-</table>
+<div class="desc">完全別格の仕上がり</div>
 
 </div>
 
 <!-- RESULT -->
 <div id="result" class="card hidden">
-<h2>お見積もり結果</h2>
+<h2>お見積もり</h2>
 <div class="result" id="price"></div>
 <div class="desc" id="comment"></div>
-<button onclick="reserve()">この内容で予約する</button>
 </div>
 
 <script>
 
 let total = 0;
 
-// 車種判定
-function autoSelect(){
-  let car = document.getElementById("car").value;
-
-  if(car.includes("N-BOX") || car.includes("タント")){
-    selectSize(0);
-  }else if(car.includes("プリウス") || car.includes("カローラ")){
-    selectSize(7700);
-  }else if(car.includes("アルファード")){
-    selectSize(15400);
-  }else if(car.includes("ハイエース")){
-    selectSize(23100);
-  }else{
-    alert("該当なし：手動選択してください");
-  }
-}
-
-// トグル
 function toggle(id){
   let el = document.getElementById(id);
   el.classList.toggle("hidden");
 }
 
-// 選択
 function selectSize(price){
   total += price;
   document.getElementById("step1").classList.add("hidden");
@@ -210,23 +160,19 @@ function selectCoat(price){
   document.getElementById("result").classList.remove("hidden");
 
   document.getElementById("price").innerText =
-  "合計金額：" + total.toLocaleString() + "円";
+    "合計金額：" + total.toLocaleString() + "円";
 
   let comment = "";
 
   if(total < 90000){
     comment = "コストを抑えたプランです";
   }else if(total < 150000){
-    comment = "人気のバランスプランです";
+    comment = "人気のおすすめプランです";
   }else{
     comment = "最高クラスの仕上がりです";
   }
 
   document.getElementById("comment").innerText = comment;
-}
-
-function reserve(){
-  alert("LINE予約に繋げてください");
 }
 
 </script>
