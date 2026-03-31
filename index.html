@@ -113,8 +113,7 @@ button{
 
 <button onclick="selectCoat(22000)">Standard</button>
 <div class="desc">
-艶・撥水・防汚のバランスが良い人気プラン<br>
-初めての方にもおすすめ
+艶・撥水・防汚のバランスが良い人気プラン
 </div>
 
 <button class="recommend" onclick="selectCoat(27500)">
@@ -127,8 +126,7 @@ button{
 
 <button onclick="selectCoat(38000)">EX</button>
 <div class="desc">
-Premiumをベースにさらに艶・防汚性能を強化<br>
-より仕上がりにこだわる方向け
+Premiumをベースにさらに艶・防汚性能を強化
 </div>
 
 <button class="gold" onclick="selectCoat(200000)">
@@ -152,7 +150,7 @@ Premiumをベースにさらに艶・防汚性能を強化<br>
 
 let total = 0;
 
-// サイズごとの車種表示
+// 車種例表示
 function showCar(type){
   let text = "";
 
@@ -163,10 +161,10 @@ function showCar(type){
     text = "例：プリウス・カローラ・ノート";
   }
   if(type == "l"){
-    text = "例：アルファード・ハリアー・ヴォクシー";
+    text = "例：ハリアー・ヴォクシー・セレナ";
   }
   if(type == "2l"){
-    text = "例：ハイエース・ランクル・キャラバン";
+    text = "例：アルファード・ヴェルファイア・ハイエース・ランクル";
   }
 
   document.getElementById("carExample").innerText = text;
