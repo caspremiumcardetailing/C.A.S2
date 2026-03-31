@@ -51,6 +51,15 @@ button{
   font-weight:bold;
 }
 
+.recommend{
+  border:2px solid #c9a100;
+}
+
+.gold{
+  background:linear-gradient(45deg,#c9a100,#ffd700);
+  color:#000;
+}
+
 .hidden{ display:none; }
 
 .result{
@@ -66,7 +75,7 @@ button{
 <!-- STEP1 -->
 <div id="step1" class="card">
 <h2>STEP1：サイズ選択</h2>
-<div class="desc">まずサイズを選択してください</div>
+<div class="desc">サイズを選択 → 内容確認 → 次へ進みます</div>
 
 <button onclick="previewSize(0,'s')">S（軽自動車）</button>
 <button onclick="previewSize(7700,'m')">M（小型普通車）</button>
@@ -86,9 +95,13 @@ button{
 
 <div id="carExample" class="highlight"></div>
 
-<button onclick="selectPolish(41800)">Light</button>
-<button onclick="selectPolish(52800)">Standard</button>
-<button onclick="selectPolish(63800)">⭐ Premium（おすすめ）</button>
+<button onclick="selectPolish(41800)">Light（新車・1年未満向け）</button>
+<button onclick="selectPolish(52800)">Standard（バランス重視）</button>
+
+<button class="recommend" onclick="selectPolish(63800)">
+⭐ Premium（おすすめ）
+</button>
+
 </div>
 
 <!-- STEP3 -->
@@ -97,11 +110,20 @@ button{
 
 <div id="carExample2" class="highlight"></div>
 
-<button onclick="selectCoat(16500)">Basic</button>
-<button onclick="selectCoat(22000)">Standard</button>
-<button onclick="selectCoat(27500)">⭐ Premium</button>
-<button onclick="selectCoat(38000)">EX</button>
-<button onclick="selectCoat(200000)">🌟 G'ZOX ハイモース</button>
+<button onclick="selectCoat(16500)">Basic（コスト重視）</button>
+
+<button onclick="selectCoat(22000)">Standard（バランス）</button>
+
+<button class="recommend" onclick="selectCoat(27500)">
+⭐ Premium（おすすめ）
+</button>
+
+<button onclick="selectCoat(38000)">EX（高性能）</button>
+
+<button class="gold" onclick="selectCoat(200000)">
+🌟 G'ZOX ハイモース
+</button>
+
 </div>
 
 <!-- RESULT -->
@@ -116,32 +138,33 @@ let total = 0;
 let selectedPrice = 0;
 let carText = "";
 
-// プレビュー表示
+// サイズプレビュー（ここでは進まない）
 function previewSize(price,type){
 
   selectedPrice = price;
 
   if(type == "s"){
-    carText = "対象：N-BOX・タント・ワゴンR";
+    carText = "対象目安：N-BOX・タント・ワゴンR";
   }
   if(type == "m"){
-    carText = "対象：プリウス・カローラ・ノート";
+    carText = "対象目安：プリウス・カローラ・ノート";
   }
   if(type == "l"){
-    carText = "対象：ハリアー・ヴォクシー・セレナ";
+    carText = "対象目安：ハリアー・ヴォクシー・セレナ";
   }
   if(type == "2l"){
-    carText = "対象：アルファード・ヴェルファイア・ハイエース・ランクル";
+    carText = "対象目安：アルファード・ヴェルファイア・ハイエース・ランクル";
   }
 
   document.getElementById("previewBox").innerText = carText;
   document.getElementById("previewBox").classList.remove("hidden");
   document.getElementById("confirmBtn").classList.remove("hidden");
 
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  // スマホでも確実に見える
+  document.getElementById("previewBox").scrollIntoView({ behavior: 'smooth' });
 }
 
-// 確定
+// サイズ確定（ここで初めて進む）
 function confirmSize(){
   total += selectedPrice;
 
