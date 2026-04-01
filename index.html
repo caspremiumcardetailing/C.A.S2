@@ -232,4 +232,189 @@ Lサイズ
 <span class="price" id="p2"></span>
 復元研磨（2工程）
 <div class="desc">
-洗車キズ除去<br
+洗車キズ除去<br>
+一番人気の仕上がり
+</div>
+</div>
+
+<div class="option" onclick="select('polish','Premium')">
+<span class="price" id="p3"></span>
+鏡面研磨（3工程）
+<div class="desc">
+完全仕上げ<br>
+ショーカークオリティ
+</div>
+</div>
+
+<button class="prev" onclick="move(1)">戻る</button>
+<button class="next" onclick="move(3)">次へ</button>
+</div>
+
+<!-- STEP3 -->
+<div class="step" id="step3">
+<h3>03 コーティングを選択</h3>
+
+<div class="option" onclick="select('coat','Entry')">
+<img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
+<span class="badge">NANO GLASS</span>
+<span class="price" id="c1"></span>
+Basic
+<div class="desc">初めての方に</div>
+</div>
+
+<div class="option" onclick="select('coat','Standard')">
+<img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c">
+<span class="badge">ポリシラザン</span>
+<span class="price" id="c2"></span>
+Standard
+<div class="desc">人気No.1 / 汚れにくい</div>
+</div>
+
+<div class="option" onclick="select('coat','Premium')">
+<img src="https://images.unsplash.com/photo-1502877338535-766e1452684a">
+<span class="badge">2層構造</span>
+<span class="price" id="c3"></span>
+Premium
+<div class="desc">艶＋耐久バランス</div>
+</div>
+
+<div class="option" onclick="select('coat','Executive')">
+<img src="https://images.unsplash.com/photo-1493238792000-8113da705763">
+<span class="badge">3層構造</span>
+<span class="price" id="c4"></span>
+Executive
+<div class="desc">最高耐久・高光沢</div>
+</div>
+
+<div class="option" onclick="select('coat','Ultimate')">
+<img src="https://images.unsplash.com/photo-1549924231-f129b911e442">
+<span class="badge">G'ZOX最高峰</span>
+Ultimate（ハイモース）
+<div class="desc">異次元の艶 ※月3台限定</div>
+</div>
+
+<button class="prev" onclick="move(2)">戻る</button>
+<button class="next" onclick="showResult()">見積もり</button>
+</div>
+
+<!-- RESULT -->
+<div class="step" id="result">
+<h3>お見積り</h3>
+<div id="summary"></div>
+
+<button class="line" onclick="sendLine()">この内容でLINE相談</button>
+<button class="prev" onclick="move(1)">やり直す</button>
+</div>
+
+</div>
+
+<div class="total">
+概算 ¥<span id="total">0</span>
+</div>
+
+<!-- ハイモース -->
+<div id="ultimateModal" class="ultimate">
+<div class="ultimate-box">
+<h2>G'ZOX ハイモース</h2>
+<div class="shine"></div>
+<p>選ばれた車だけの施工</p>
+<p>月3台限定</p>
+<button onclick="closeUltimate()">閉じる</button>
+</div>
+</div>
+
+<script>
+const price={
+polish:{
+Light:{S:41800,M:49500,L:57200,'2L':64900},
+Standard:{S:52800,M:60500,L:68200,'2L':75900},
+Premium:{S:63800,M:71500,L:79200,'2L':86900}
+},
+coat:{
+Entry:{S:14300,M:16500,L:18700,'2L':20900},
+Standard:{S:27500,M:29700,L:31900,'2L':34100},
+Premium:{S:40700,M:42900,L:45100,'2L':47300},
+Executive:{S:57200,M:62700,L:68200,'2L':73700}
+}
+};
+
+let sel={size:'S'};
+
+function select(type,val){
+sel[type]=val;
+
+event.currentTarget.parentElement.querySelectorAll('.option').forEach(el=>el.classList.remove('selected'));
+event.currentTarget.classList.add('selected');
+
+if(type==="size") updatePrices();
+if(val==="Ultimate") showUltimate();
+
+calc();
+}
+
+function updatePrices(){
+let s=sel.size;
+p1.innerText="¥"+price.polish.Light[s].toLocaleString();
+p2.innerText="¥"+price.polish.Standard[s].toLocaleString();
+p3.innerText="¥"+price.polish.Premium[s].toLocaleString();
+
+c1.innerText="¥"+price.coat.Entry[s].toLocaleString();
+c2.innerText="¥"+price.coat.Standard[s].toLocaleString();
+c3.innerText="¥"+price.coat.Premium[s].toLocaleString();
+c4.innerText="¥"+price.coat.Executive[s].toLocaleString();
+}
+
+function calc(){
+if(sel.coat==="Ultimate"){
+total.innerText="ASK";
+return;
+}
+
+let t=0;
+if(sel.polish) t+=price.polish[sel.polish][sel.size];
+if(sel.coat) t+=price.coat[sel.coat][sel.size];
+
+total.innerText=t.toLocaleString();
+}
+
+function move(n){
+document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+document.getElementById('step'+n).classList.add('active');
+window.scrollTo(0,0);
+}
+
+function showResult(){
+move('result');
+summary.innerHTML=`
+サイズ:${sel.size}<br>
+研磨:${sel.polish}<br>
+コート:${sel.coat}<br>
+合計:¥${total.innerText}
+`;
+}
+
+function sendLine(){
+const msg=`見積依頼
+サイズ:${sel.size}
+研磨:${sel.polish}
+コート:${sel.coat}
+合計:${total.innerText}`;
+window.location.href=`https://line.me/R/oaMessage/@009zapmx/?${encodeURIComponent(msg)}`;
+}
+
+slider.oninput=function(){
+afterImg.style.clipPath=`inset(0 ${100-this.value}% 0 0)`;
+}
+
+function showUltimate(){
+document.getElementById("ultimateModal").style.display="flex";
+}
+function closeUltimate(){
+document.getElementById("ultimateModal").style.display="none";
+}
+
+updatePrices();
+</script>
+
+</body>
+</html>
