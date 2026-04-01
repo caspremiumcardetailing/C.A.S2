@@ -13,6 +13,7 @@
 --card:#111;
 --text:#fff;
 --sub:#aaa;
+--border:#262626;
 --line:#06c755;
 }
 
@@ -26,8 +27,8 @@ justify-content:center;
 }
 
 .container{
-width:100%;
 max-width:500px;
+width:100%;
 padding:20px;
 background:#111;
 border-radius:20px;
@@ -41,10 +42,13 @@ border-bottom:1px solid #333;
 padding-bottom:10px;
 }
 
+.step{display:none;}
+.step.active{display:block;}
+
 /* ビフォーアフター */
 .ba-wrap{
 position:relative;
-height:200px;
+height:220px;
 overflow:hidden;
 border-radius:10px;
 margin-bottom:15px;
@@ -72,10 +76,16 @@ left:5%;
 .option{
 background:#1a1a1a;
 padding:15px;
-margin-bottom:10px;
-border-radius:10px;
+margin-bottom:12px;
+border-radius:12px;
 border:1px solid #333;
 cursor:pointer;
+}
+
+.option img{
+width:100%;
+border-radius:8px;
+margin-bottom:8px;
 }
 
 .option.selected{
@@ -89,7 +99,35 @@ color:var(--accent);
 font-weight:bold;
 }
 
-/* 固定バー */
+.desc{
+font-size:0.85em;
+color:#aaa;
+margin-top:6px;
+line-height:1.5;
+}
+
+.badge{
+font-size:0.7em;
+color:#d4af37;
+margin-bottom:4px;
+display:block;
+}
+
+/* ボタン */
+button{
+width:100%;
+padding:15px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+font-weight:bold;
+}
+
+.next{background:#3b82f6;color:#fff;}
+.prev{background:#222;color:#aaa;}
+.line{background:#06c755;color:#fff;}
+
+/* 合計 */
 .total{
 position:fixed;
 bottom:10px;
@@ -104,20 +142,7 @@ text-align:center;
 border:1px solid var(--accent);
 }
 
-button{
-width:100%;
-padding:15px;
-margin-top:10px;
-border:none;
-border-radius:10px;
-font-weight:bold;
-}
-
-.next{background:#3b82f6;color:#fff;}
-.prev{background:#222;color:#aaa;}
-.line{background:#06c755;color:#fff;}
-
-/* ハイモース演出 */
+/* ハイモース */
 .ultimate{
 position:fixed;
 top:0;
@@ -134,12 +159,6 @@ z-index:9999;
 .ultimate-box{
 text-align:center;
 color:#d4af37;
-animation:fade 1s;
-}
-
-@keyframes fade{
-from{opacity:0;transform:scale(0.9);}
-to{opacity:1;}
 }
 
 .shine{
@@ -154,152 +173,63 @@ animation:shine 2s infinite;
 0%{background-position:-200px;}
 100%{background-position:200px;}
 }
-
-.limit{
-color:#d4af37;
-font-size:0.8em;
-text-align:center;
-margin-top:5px;
-}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-
 <h2>C.A.S ESTIMATE</h2>
 
-<!-- ビフォーアフター -->
+<!-- STEP1 -->
+<div class="step active" id="step1">
+
 <div class="ba-wrap">
 <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7">
 <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" class="ba-after" id="afterImg">
 <input type="range" min="0" max="100" value="50" id="slider">
 </div>
 
-<!-- サイズ -->
-<h3>サイズ選択</h3>
-<div class="option" onclick="select('size','S')">S 軽</div>
-<div class="option" onclick="select('size','M')">M 小型</div>
-<div class="option" onclick="select('size','L')">L 普通</div>
-<div class="option" onclick="select('size','2L')">2L 大型</div>
+<h3>01 車種サイズを選択</h3>
 
-<!-- 研磨 -->
-<h3>研磨</h3>
-<div class="option" onclick="select('polish','Light')"><span class="price" id="p1"></span>軽研磨</div>
-<div class="option" onclick="select('polish','Standard')"><span class="price" id="p2"></span>復元研磨</div>
-<div class="option" onclick="select('polish','Premium')"><span class="price" id="p3"></span>鏡面研磨</div>
-
-<!-- コート -->
-<h3>コーティング</h3>
-<div class="option" onclick="select('coat','Entry')"><span class="price" id="c1"></span>Basic</div>
-<div class="option" onclick="select('coat','Standard')"><span class="price" id="c2"></span>Standard</div>
-<div class="option" onclick="select('coat','Premium')"><span class="price" id="c3"></span>Premium</div>
-<div class="option" onclick="select('coat','Executive')"><span class="price" id="c4"></span>Executive</div>
-
-<div class="option" onclick="select('coat','Ultimate')">
-Ultimate（ハイモース）
-<div class="limit">※月3台限定</div>
+<div class="option" onclick="select('size','S')">
+Sサイズ
+<div class="desc">N-BOX / タント / ワゴンR</div>
 </div>
 
-<button class="next" onclick="sendLine()">この内容でLINE相談</button>
-
+<div class="option" onclick="select('size','M')">
+Mサイズ
+<div class="desc">ヤリス / フィット / ルーミー</div>
 </div>
 
-<!-- 合計 -->
-<div class="total">
-概算 ¥<span id="total">0</span>
+<div class="option" onclick="select('size','L')">
+Lサイズ
+<div class="desc">プリウス / ハリアー / セレナ</div>
 </div>
 
-<!-- ハイモース演出 -->
-<div id="ultimateModal" class="ultimate">
-<div class="ultimate-box">
-<h2>G'ZOX ハイモース</h2>
-<p>選ばれた車だけが辿り着く領域</p>
-<div class="shine"></div>
-<p>※月3台限定施工</p>
-<button onclick="closeUltimate()">閉じる</button>
+<div class="option" onclick="select('size','2L')">
+2Lサイズ
+<div class="desc">アルファード / ランクル / ハイエース</div>
+</div>
+
+<button class="next" onclick="move(2)">次へ</button>
+</div>
+
+<!-- STEP2 -->
+<div class="step" id="step2">
+<h3>02 下地研磨を選択</h3>
+
+<div class="option" onclick="select('polish','Light')">
+<span class="price" id="p1"></span>
+軽研磨（1工程）
+<div class="desc">
+新車・軽度な汚れ向け<br>
+艶を軽く引き上げ
 </div>
 </div>
 
-<script>
-const price={
-polish:{
-Light:{S:41800,M:49500,L:57200,'2L':64900},
-Standard:{S:52800,M:60500,L:68200,'2L':75900},
-Premium:{S:63800,M:71500,L:79200,'2L':86900}
-},
-coat:{
-Entry:{S:14300,M:16500,L:18700,'2L':20900},
-Standard:{S:27500,M:29700,L:31900,'2L':34100},
-Premium:{S:40700,M:42900,L:45100,'2L':47300},
-Executive:{S:57200,M:62700,L:68200,'2L':73700}
-}
-};
-
-let sel={size:'S'};
-
-function select(type,val){
-sel[type]=val;
-
-document.querySelectorAll('.option').forEach(el=>el.classList.remove('selected'));
-event.target.classList.add('selected');
-
-if(type==="size") updatePrices();
-if(val==="Ultimate") showUltimate();
-
-calc();
-}
-
-function updatePrices(){
-let s=sel.size;
-p1.innerText="¥"+price.polish.Light[s].toLocaleString();
-p2.innerText="¥"+price.polish.Standard[s].toLocaleString();
-p3.innerText="¥"+price.polish.Premium[s].toLocaleString();
-
-c1.innerText="¥"+price.coat.Entry[s].toLocaleString();
-c2.innerText="¥"+price.coat.Standard[s].toLocaleString();
-c3.innerText="¥"+price.coat.Premium[s].toLocaleString();
-c4.innerText="¥"+price.coat.Executive[s].toLocaleString();
-}
-
-function calc(){
-if(sel.coat==="Ultimate"){
-total.innerText="ASK";
-return;
-}
-
-let t=0;
-if(sel.polish) t+=price.polish[sel.polish][sel.size];
-if(sel.coat) t+=price.coat[sel.coat][sel.size];
-
-total.innerText=t.toLocaleString();
-}
-
-function sendLine(){
-const msg=`見積依頼
-サイズ:${sel.size}
-研磨:${sel.polish}
-コート:${sel.coat}
-合計:${total.innerText}`;
-window.location.href=`https://line.me/R/oaMessage/@009zapmx/?${encodeURIComponent(msg)}`;
-}
-
-/* ビフォーアフター */
-slider.oninput=function(){
-afterImg.style.clipPath=`inset(0 ${100-this.value}% 0 0)`;
-}
-
-/* ハイモース */
-function showUltimate(){
-document.getElementById("ultimateModal").style.display="flex";
-}
-function closeUltimate(){
-document.getElementById("ultimateModal").style.display="none";
-}
-
-updatePrices();
-</script>
-
-</body>
-</html>
+<div class="option" onclick="select('polish','Standard')">
+<span class="price" id="p2"></span>
+復元研磨（2工程）
+<div class="desc">
+洗車キズ除去<br
