@@ -4,194 +4,234 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C.A.S ESTIMATE</title>
-
 <style>
-:root{
- --gold:#d4af37; --accent:#3b82f6; --bg:#000;
- --card:#111; --text:#fff; --sub:#aaa;
- --border:#262626; --line:#06c755;
-}
-body{
- margin:0;background:#000;color:#fff;
- font-family:sans-serif;display:flex;justify-content:center;
-}
-.container{
- max-width:500px;width:100%;padding:20px;
- background:#111;border-radius:20px;margin-bottom:140px;
- border:1px solid var(--border);
-}
-h2{
- text-align:center;letter-spacing:3px;
- border-bottom:1px solid #333;padding-bottom:10px;
- color:var(--gold);
-}
+:root{ --gold:#d4af37; --accent:#3b82f6; --bg:#000; --card:#111; --text:#fff; --sub:#aaa; --border:#262626; --line:#06c755; }
+body{ margin:0; background:#000; color:#fff; font-family:sans-serif; display:flex; justify-content:center; }
+.container{ max-width:500px; width:100%; padding:20px; background:#111; border-radius:20px; margin-bottom:140px; border:1px solid var(--border); }
+h2{ text-align:center; letter-spacing:3px; border-bottom:1px solid #333; padding-bottom:10px; color:var(--gold); }
 .step{display:none;}
 .step.active{display:block;}
 
-.option{
- background:#1a1a1a;padding:15px;margin-bottom:12px;
- border-radius:12px;border:1px solid #333;cursor:pointer;
-}
-.option.selected{
- border:1px solid var(--accent);
- background:#16213e;
-}
-.price{float:right;color:var(--accent);font-weight:bold;}
+/* 計算ツールエリア */
+.calc-tool { background:#1a1a1a; padding:15px; border-radius:12px; border:1px solid #444; margin-bottom:20px; }
+.calc-grid { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-top:10px; }
+.calc-grid input { background:#333; border:1px solid #555; color:#fff; padding:8px; border-radius:5px; width:80%; }
+.calc-result { margin-top:15px; padding:10px; background:#222; border-radius:8px; text-align:center; border-left:4px solid var(--accent); }
+.vol-num { font-size:1.2em; font-weight:bold; color:var(--accent); }
 
-button{
- width:100%;padding:16px;margin-top:10px;
- border:none;border-radius:10px;font-weight:bold;
-}
+.visual-frame{ width:100%; height:200px; background:#222; border-radius:12px; margin-bottom:15px; overflow:hidden; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
+.visual-frame img{ width:100%; height:100%; object-fit:cover; }
+
+.import-option { background:#1a1a1a; padding:15px; border-radius:12px; border:1px solid var(--gold); margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; }
+.switch { position:relative; display:inline-block; width:50px; height:26px; }
+.switch input { opacity:0; width:0; height:0; }
+.slider-btn { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#333; transition:.4s; border-radius:34px; }
+.slider-btn:before { position:absolute; content:""; height:18px; width:18px; left:4px; bottom:4px; background-color:white; transition:.4s; border-radius:50%; }
+input:checked + .slider-btn { background-color:var(--gold); }
+input:checked + .slider-btn:before { transform:translateX(24px); }
+
+.option{ background:#1a1a1a; padding:15px; margin-bottom:12px; border-radius:12px; border:1px solid #333; cursor:pointer; transition:0.2s; }
+.option.selected{ border:1px solid var(--accent); background:#16213e; }
+.price{ float:right; color:var(--accent); font-weight:bold; }
+.desc{ font-size:0.8em; color:#aaa; margin-top:6px; line-height:1.4; }
+.badge{ font-size:0.7em; color:var(--gold); margin-bottom:4px; display:block; font-weight:bold; }
+
+button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
 .next{background:var(--accent);color:#fff;}
 .prev{background:#222;color:#aaa;}
+.line-btn{background:var(--line);color:#fff; font-size:1.1em;}
 
-.total-panel{
- position:fixed;bottom:15px;left:50%;
- transform:translateX(-50%);
- width:90%;max-width:450px;
- background:#0f172a;padding:15px;
- border-radius:16px;text-align:center;
- border:1px solid var(--accent);
-}
+.total-panel{ position:fixed; bottom:15px; left:50%; transform:translateX(-50%); width:90%; max-width:450px; background:linear-gradient(135deg, #1e293b, #0f172a); padding:15px; border-radius:16px; text-align:center; border:1px solid var(--accent); z-index:100; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+.import-label { display:none; color:var(--gold); font-size:0.75em; margin-bottom:4px; font-weight:bold; }
 </style>
 </head>
-
 <body>
 
 <div class="container">
-<h2>C.A.S ESTIMATE</h2>
+    <h2>C.A.S ESTIMATE</h2>
 
-<!-- STEP1 -->
-<div class="step active" id="step1">
+    <div class="step active" id="step1">
+        <h3>01 車種サイズ診断</h3>
+        
+        <div class="calc-tool">
+            <div style="font-size:0.9em; margin-bottom:10px; color:var(--gold);">▼ 車検証の数値から自動判定</div>
+            <div class="calc-grid">
+                <div>長さ(cm)<br><input type="number" id="vL" placeholder="470" oninput="autoCalcSize()"></div>
+                <div>幅(cm)<br><input type="number" id="vW" placeholder="170" oninput="autoCalcSize()"></div>
+                <div>高さ(cm)<br><input type="number" id="vH" placeholder="150" oninput="autoCalcSize()"></div>
+            </div>
+            <div class="calc-result">
+                体積: <span id="volRes" class="vol-num">0.00</span> $m^3$ 
+                → <span id="sizeRes" style="font-weight:bold; color:var(--gold);">サイズを自動選択します</span>
+            </div>
+        </div>
 
-<h3>01 サイズ選択</h3>
+        <div class="import-option">
+            <div>
+                <strong>輸入車（外車）</strong>
+                <div style="font-size:0.7em; color:var(--sub);">※施工難易度により全体額の+20%加算</div>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="importCheck" onchange="calc()">
+                <span class="slider-btn"></span>
+            </label>
+        </div>
 
-<!-- 寸法入力 -->
-<div style="background:#1a1a1a;padding:15px;border-radius:12px;margin-bottom:15px;">
-<div style="font-size:0.9em;margin-bottom:8px;">車両サイズ入力（cm）</div>
-<input id="len" placeholder="長さ" style="width:30%;">
-<input id="wid" placeholder="幅" style="width:30%;">
-<input id="hei" placeholder="高さ" style="width:30%;">
-<button onclick="autoSize()">自動判定</button>
-</div>
+        <div id="sizeOptions">
+            <div class="option" data-size="S" onclick="select('size','S')">Sサイズ<div class="desc">軽自動車</div></div>
+            <div class="option" data-size="M" onclick="select('size','M')">Mサイズ<div class="desc">10.5$m^3$未満</div></div>
+            <div class="option" data-size="L" onclick="select('size','L')">Lサイズ<div class="desc">10.5 〜 12.3$m^3$未満</div></div>
+            <div class="option" data-size="2L" onclick="select('size','2L')">2Lサイズ<div class="desc">12.3 〜 14.0$m^3$未満</div></div>
+            <div class="option" data-size="3L" onclick="select('size','3L')">3Lサイズ<div class="desc">14.0 〜 17.0$m^3$未満</div></div>
+            <div class="option" data-size="4L" onclick="select('size','4L')">4Lサイズ<div class="desc">17.0$m^3$以上</div></div>
+        </div>
+        <button class="next" onclick="move(2)">下地研磨の選択へ</button>
+    </div>
 
-<div class="option" onclick="select('size','S')">S（軽自動車）</div>
-<div class="option" onclick="select('size','M')">M（～10.5未満）</div>
-<div class="option" onclick="select('size','L')">L（10.5～12.3未満）</div>
-<div class="option" onclick="select('size','2L')">2L（12.3～14.0未満）</div>
-<div class="option" onclick="select('size','3L')">3L（14.0～17.0未満）</div>
-<div class="option" onclick="select('size','4L')">4L（17.0～）</div>
+    <div class="step" id="step2">
+        <h3>02 下地施工（税込）を選択</h3>
+        <div class="option" onclick="select('polish','Light')"><span class="price" id="p1"></span>Light<div class="desc">研磨1工程</div></div>
+        <div class="option" onclick="select('polish','Standard')"><span class="price" id="p2"></span>★Standard<div class="desc">研磨2工程</div></div>
+        <div class="option" onclick="select('polish','Premium')"><span class="price" id="p3"></span>Premium<div class="desc">研磨3工程</div></div>
+        <button class="prev" onclick="move(1)">戻る</button>
+        <button class="next" onclick="move(3)">コーティング選択へ</button>
+    </div>
 
-<button class="next" onclick="move(2)">次へ</button>
-</div>
-
-<!-- STEP2 -->
-<div class="step" id="step2">
-<h3>02 下地研磨</h3>
-
-<div class="option" onclick="select('polish','Light')">
-<span class="price" id="p1"></span>Light
-</div>
-<div class="option" onclick="select('polish','Standard')">
-<span class="price" id="p2"></span>Standard
-</div>
-<div class="option" onclick="select('polish','Premium')">
-<span class="price" id="p3"></span>Premium
-</div>
-
-<button class="prev" onclick="move(1)">戻る</button>
-<button class="next" onclick="move(3)">次へ</button>
-</div>
-
-<!-- STEP3 -->
-<div class="step" id="step3">
-<h3>03 コーティング</h3>
-
-<div class="option" onclick="select('coat','Entry')">
-<span class="price" id="c1"></span>Basic
-</div>
-<div class="option" onclick="select('coat','Standard')">
-<span class="price" id="c2"></span>Standard
-</div>
-<div class="option" onclick="select('coat','Premium')">
-<span class="price" id="c3"></span>Premium
-</div>
-
-<button class="prev" onclick="move(2)">戻る</button>
-</div>
-
+    <div class="step" id="step3">
+        <h3>03 コーティング（税込）を選択</h3>
+        <div class="option" onclick="select('coat','Basic')">
+            <span class="price" id="c1"></span>Basic
+            <div class="desc">ガラス</div>
+        </div>
+        <div class="option" onclick="select('coat','Standard')">
+            <span class="price" id="c2"></span>★Standard
+            <div class="desc">セラミック</div>
+        </div>
+        <div class="option" onclick="select('coat','Premium')">
+            <span class="price" id="c3"></span>Premium
+            <div class="desc">セラミック2層</div>
+        </div>
+        <button class="prev" onclick="move(2)">戻る</button>
+        <button class="line-btn" onclick="sendLine()">この内容で見積もり確定（LINEへ）</button>
+    </div>
 </div>
 
 <div class="total-panel">
-合計 ¥<span id="totalDisplay">0</span>
+    <div id="importBadge" class="import-label">輸入車割増(+20%) 適用中</div>
+    概算合計 ¥<span id="totalDisplay" style="font-size:1.6em; font-weight:bold;">0</span>
 </div>
 
 <script>
-
-const price={
- polish:{
-  Light:{S:16500,M:18700,L:20900,'2L':23100,'3L':25300,'4L':27500},
-  Standard:{S:33000,M:35200,L:37400,'2L':39600,'3L':41800,'4L':44000},
-  Premium:{S:49500,M:51700,L:53900,'2L':56100,'3L':58300,'4L':60500}
- },
- coat:{
-  Entry:{S:33000,M:35200,L:37400,'2L':39600,'3L':41800,'4L':44000},
-  Standard:{S:55000,M:57200,L:59400,'2L':61600,'3L':63800,'4L':66000},
-  Premium:{S:66000,M:68200,L:70400,'2L':72600,'3L':74800,'4L':77000}
- }
+// 画像の価格表に基づいたデータ
+const price = {
+    polish: {
+        Light:    { S:16500, M:18700, L:20900, '2L':23100, '3L':25300, '4L':27500 },
+        Standard: { S:33000, M:35200, L:37400, '2L':39600, '3L':41800, '4L':44000 },
+        Premium:  { S:49500, M:51700, L:53900, '2L':56100, '3L':58300, '4L':60500 }
+    },
+    coat: {
+        Basic:    { S:33000, M:35200, L:37400, '2L':39600, '3L':41800, '4L':44000 },
+        Standard: { S:55000, M:57200, L:59400, '2L':61600, '3L':63800, '4L':66000 },
+        Premium:  { S:66000, M:68200, L:70400, '2L':72600, '3L':74800, '4L':77000 }
+    }
 };
 
-let sel={size:'S',polish:'Light',coat:'Entry'};
+let sel = { size:'S', polish:'Light', coat:'Basic' };
 
-function select(type,val){
- sel[type]=val;
- calc();
+// 自動サイズ計算
+function autoCalcSize() {
+    const l = parseFloat(document.getElementById('vL').value) || 0;
+    const w = parseFloat(document.getElementById('vW').value) || 0;
+    const h = parseFloat(document.getElementById('vH').value) || 0;
+    
+    // 体積計算 (m3)
+    const vol = (l * w * h) / 1000000;
+    document.getElementById('volRes').innerText = vol.toFixed(2);
+
+    let detectedSize = "S";
+    if (vol === 0) {
+        detectedSize = "S";
+    } else if (vol < 10.5) {
+        detectedSize = "M";
+    } else if (vol < 12.3) {
+        detectedSize = "L";
+    } else if (vol < 14.0) {
+        detectedSize = "2L";
+    } else if (vol < 17.0) {
+        detectedSize = "3L";
+    } else {
+        detectedSize = "4L";
+    }
+
+    document.getElementById('sizeRes').innerText = detectedSize + "サイズに該当します";
+    
+    // UI反映
+    const opts = document.querySelectorAll('#sizeOptions .option');
+    opts.forEach(opt => {
+        if(opt.getAttribute('data-size') === detectedSize) {
+            opt.click();
+        }
+    });
 }
 
-function autoSize(){
- const l=document.getElementById("len").value;
- const w=document.getElementById("wid").value;
- const h=document.getElementById("hei").value;
-
- if(!l||!w||!h)return alert("入力してください");
-
- const v=(l*w*h)/1000000;
-
- let size="S";
-
- if(v<10.5) size="M";
- else if(v<12.3) size="L";
- else if(v<14.0) size="2L";
- else if(v<17.0) size="3L";
- else size="4L";
-
- sel.size=size;
- calc();
+function select(type, val) {
+    sel[type] = val;
+    const container = event.currentTarget.parentElement;
+    container.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+    
+    if(type === "size") updatePrices();
+    calc();
 }
 
-function calc(){
- const t=price.polish[sel.polish][sel.size]
-        +price.coat[sel.coat][sel.size];
-
- document.getElementById("totalDisplay").innerText=
- t.toLocaleString();
-
- document.getElementById('p1').innerText="¥"+price.polish.Light[sel.size].toLocaleString();
- document.getElementById('p2').innerText="¥"+price.polish.Standard[sel.size].toLocaleString();
- document.getElementById('p3').innerText="¥"+price.polish.Premium[sel.size].toLocaleString();
- document.getElementById('c1').innerText="¥"+price.coat.Entry[sel.size].toLocaleString();
- document.getElementById('c2').innerText="¥"+price.coat.Standard[sel.size].toLocaleString();
- document.getElementById('c3').innerText="¥"+price.coat.Premium[sel.size].toLocaleString();
+function updatePrices() {
+    let s = sel.size;
+    document.getElementById('p1').innerText = "¥" + price.polish.Light[s].toLocaleString();
+    document.getElementById('p2').innerText = "¥" + price.polish.Standard[s].toLocaleString();
+    document.getElementById('p3').innerText = "¥" + price.polish.Premium[s].toLocaleString();
+    document.getElementById('c1').innerText = "¥" + price.coat.Basic[s].toLocaleString();
+    document.getElementById('c2').innerText = "¥" + price.coat.Standard[s].toLocaleString();
+    document.getElementById('c3').innerText = "¥" + price.coat.Premium[s].toLocaleString();
 }
 
-function move(n){
- document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
- document.getElementById('step'+n).classList.add('active');
+function calc() {
+    const display = document.getElementById('totalDisplay');
+    const badge = document.getElementById('importBadge');
+    const isImport = document.getElementById('importCheck').checked;
+
+    let t = price.polish[sel.polish][sel.size] + price.coat[sel.coat][sel.size];
+    if(isImport) t = Math.floor(t * 1.2);
+    display.innerText = t.toLocaleString();
+    badge.style.display = isImport ? "block" : "none";
 }
 
-window.onload=calc;
+function move(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    window.scrollTo(0,0);
+}
 
+function sendLine() {
+    const isImport = document.getElementById('importCheck').checked ? "輸入車" : "国産車";
+    const total = document.getElementById('totalDisplay').innerText;
+    const msg = `【見積依頼】
+サイズ: ${sel.size}
+区分: ${isImport}
+下地施工: ${sel.polish}
+コーティング: ${sel.coat}
+合計: ¥${total}`;
+    window.location.href = `https://line.me/R/oaMessage/@009zapmx/?${encodeURIComponent(msg)}`;
+}
+
+window.onload = () => {
+    updatePrices();
+    calc();
+    // 初期選択状態の付与
+    document.querySelectorAll('.step').forEach(step => {
+        const firstOpt = step.querySelector('.option');
+        if(firstOpt) firstOpt.classList.add('selected');
+    });
+};
 </script>
-
 </body>
 </html>
