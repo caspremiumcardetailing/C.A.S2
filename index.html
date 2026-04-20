@@ -42,7 +42,7 @@ input:checked + .slider-btn:before { transform:translateX(24px); }
 .old-price { color:var(--sub); text-decoration:line-through; font-size:0.85em; display:block; }
 .new-price { color:var(--newcar); font-weight:bold; display:block; }
 .desc{ font-size:0.8em; color:#aaa; margin-top:6px; line-height:1.4; }
-.info-box { background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--gold); padding: 10px; margin-bottom: 15px; font-size: 0.85em; color: #eee; line-height: 1.5; }
+.info-box { background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--gold); padding: 12px; margin-bottom: 15px; font-size: 0.85em; color: #eee; line-height: 1.5; border-radius: 4px; }
 
 button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
 .next{background:var(--accent);color:#fff;}
@@ -99,7 +99,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         <h3>02 下地処理（研磨）を選択</h3>
         <div class="info-box">
             <strong>下地処理とは？</strong><br>
-            塗装表面の汚れや微細な傷を研磨で取り除く工程です。これを丁寧に行うことで、コーティングが塗装と強く密着し、深い艶と耐久性が生まれます。
+            通常の洗車では落とせない<b>頑固な水垢、油分、ボディのザラつき（鉄粉）</b>を除去し、研磨で塗装面を平滑に整える工程です。この「土台作り」を丁寧に行うことで、コーティングの密着性が高まり、深い艶と耐久性が引き出されます。
         </div>
         <div class="option" onclick="select('polish','Light')">
             <span class="price" id="p1">¥0</span>
@@ -109,7 +109,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         <div class="option" onclick="select('polish','Standard')">
             <span class="price" id="p2">¥0</span>
             Standard
-            <div class="desc">【オススメ】経年車、中古車に。洗車傷や水垢をスッキリ除去し、本来の輝きを呼び戻します。</div>
+            <div class="desc">【オススメ】経年車、中古車に。固着した水垢や洗車傷をスッキリ除去し、塗装本来の輝きを呼び戻します。</div>
         </div>
         <div class="option" onclick="select('polish','Premium')">
             <span class="price" id="p3">¥0</span>
@@ -185,8 +185,8 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 </div>
 
 <script>
-// (以下JavaScript部分は前回と同様のロジックを保持)
 const tax = (price) => Math.floor(price * 1.1);
+
 const priceEx = {
     polish: {
         Light:    { S:15000, M:17000, L:19000, '2L':21000, '3L':23000, '4L':25000 },
@@ -205,7 +205,7 @@ const priceEx = {
         headlight: { S:12000, M:12000, L:12000, '2L':12000, '3L':12000, '4L':12000 },
         interior: { S:15000, M:20000, L:25000, '2L':30000, '3L':35000, '4L':40000 }
     },
-    maint: { S:8000, M:10000, L:12000, '2L':14000, '3L':16000, '4L':20000 }
+    maint: { S:8000, M:9000, L:10000, '2L':11000, '3L':12000, '4L':13000 } // 1000円刻みに修正
 };
 
 let sel = { size:null, polish:null, coat:null, options: [] };
