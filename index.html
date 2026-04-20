@@ -45,7 +45,7 @@ input:checked + .slider-btn:before { transform:translateX(24px); }
 button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; }
 .next{background:var(--accent);color:#fff;}
 .prev{background:#222;color:#aaa;}
-.line-btn{background:var(--line);color:#fff; font-size:1.1em;}
+.line-btn{background:var(--line);color:#fff; font-size:1.1em; margin-top:20px;}
 
 .total-panel{ position:fixed; bottom:15px; left:50%; transform:translateX(-50%); width:90%; max-width:450px; background:linear-gradient(135deg, #1e293b, #0f172a); padding:15px; border-radius:16px; text-align:center; border:1px solid var(--accent); z-index:100; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
 .import-label { display:none; color:var(--gold); font-size:0.75em; margin-bottom:4px; font-weight:bold; }
@@ -87,12 +87,12 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         </div>
 
         <div id="sizeOptions">
-            <div class="option" data-size="S" onclick="select('size','S')">Sサイズ<div class="desc">軽自動車</div></div>
-            <div class="option" data-size="M" onclick="select('size','M')">Mサイズ<div class="desc">10.5m³未満</div></div>
-            <div class="option" data-size="L" onclick="select('size','L')">Lサイズ<div class="desc">10.5 〜 12.3m³未満</div></div>
-            <div class="option" data-size="2L" onclick="select('size','2L')">2Lサイズ<div class="desc">12.3 〜 14.0m³未満</div></div>
-            <div class="option" data-size="3L" onclick="select('size','3L')">3Lサイズ<div class="desc">14.0 〜 17.0m³未満</div></div>
-            <div class="option" data-size="4L" onclick="select('size','4L')">4Lサイズ<div class="desc">17.0m³以上</div></div>
+            <div class="option" data-size="S" onclick="select('size','S')">Sサイズ<div class="desc">N-BOX, ジムニー 等</div></div>
+            <div class="option" data-size="M" onclick="select('size','M')">Mサイズ<div class="desc">プリウス, カローラクロス 等</div></div>
+            <div class="option" data-size="L" onclick="select('size','L')">Lサイズ<div class="desc">フォレスター, クラウン 等</div></div>
+            <div class="option" data-size="2L" onclick="select('size','2L')">2Lサイズ<div class="desc">ランクル250, アルファード 等</div></div>
+            <div class="option" data-size="3L" onclick="select('size','3L')">3Lサイズ<div class="desc">ハイエース(標準) 等</div></div>
+            <div class="option" data-size="4L" onclick="select('size','4L')">4Lサイズ<div class="desc">ハイエース(ワイド/ハイルーフ) 等</div></div>
         </div>
         <button class="next" onclick="move(2)">下地研磨の選択へ</button>
     </div>
@@ -108,7 +108,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         </div>
         <div class="option" onclick="select('polish','Standard')">
             <div class="rec-tag">オススメ</div>
-            <span class="price" id="p2"></span>★Standard
+            <span class="price" id="p2"></span>Standard
             <div class="desc">研磨2工程：水垢や軽微な小傷を除去し、本来の輝きへ。</div>
         </div>
         <div class="option" onclick="select('polish','Premium')">
@@ -130,7 +130,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         </div>
         <div class="option" onclick="select('coat','Standard')">
             <div class="rec-tag">オススメ</div>
-            <span class="price" id="c2"></span>★Standard
+            <span class="price" id="c2"></span>Standard
             <div class="desc">セラミック：圧倒的な被膜の硬度と艶。長期保護に最適。</div>
         </div>
         <div class="option" onclick="select('coat','Premium')">
@@ -138,7 +138,59 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
             <div class="desc">セラミック2層：2層構造により、更なる膜厚感と輝きを実現。</div>
         </div>
         <button class="prev" onclick="move(2)">戻る</button>
-        <button class="line-btn" onclick="sendLine()">この内容で見積もり確定（LINEへ）</button>
+        <button class="next" onclick="move(4)">オプション選択へ</button>
+    </div>
+
+    <div class="step" id="step4">
+        <h3>04 オプションを選択</h3>
+        
+        <div class="option" onclick="toggleOption('suv_pack')">
+            <div class="rec-tag">一番人気</div>
+            <span class="price">+¥28,000</span>SUVパッケージ
+            <div class="desc">樹脂コート+窓研磨(前)+ホイールコートのお得セット</div>
+        </div>
+
+        <div id="optList">
+            <div class="option" onclick="toggleOption('resin')">
+                <span class="price" id="o_resin"></span>樹脂パーツコート
+                <div class="desc">未塗装樹脂の黒ツヤを復活・保護</div>
+            </div>
+            <div class="option" onclick="toggleOption('glass_front')">
+                <span class="price" id="o_gf"></span>窓ガラス研磨+コート(前)
+                <div class="desc">フロントのみ。視界をクリアに</div>
+            </div>
+            <div class="option" onclick="toggleOption('glass_all')">
+                <span class="price" id="o_ga"></span>窓ガラス研磨+コート(全面)
+                <div class="desc">サンルーフを除く全面のウロコ除去</div>
+            </div>
+            <div class="option" onclick="toggleOption('headlight')">
+                <span class="price" id="o_hl"></span>ヘッドライト研磨+コート
+                <div class="desc">黄ばみを除去し透明感を再生</div>
+            </div>
+            <div class="option" onclick="toggleOption('interior')">
+                <span class="price" id="o_in"></span>内装コーティング
+                <div class="desc">シートやパネルの防汚・劣化防止</div>
+            </div>
+        </div>
+        
+        <button class="prev" onclick="move(3)">戻る</button>
+        <button class="next" onclick="move(5)">最終確認へ</button>
+    </div>
+
+    <div class="step" id="step5">
+        <h3>05 メンテナンス（参考）</h3>
+        <div class="calc-tool">
+            <div style="color:var(--gold); font-weight:bold;">次回以降のメンテナンス費用</div>
+            <div class="desc" style="margin-bottom:10px;">精密洗車 + トップコート補充</div>
+            <div style="font-size:1.2em; color:var(--accent);">¥<span id="maintPrice"></span> <small>(税込)</small></div>
+            <div class="desc">※半年〜1年ごとの施工を推奨しております</div>
+        </div>
+
+        <div style="margin-top:30px;">
+            <p style="font-size:0.8em; color:var(--sub);">※表示価格は概算です。お車の状態により変動する場合がございます。</p>
+            <button class="line-btn" onclick="sendLine()">この内容で見積もり確定（LINEへ）</button>
+            <button class="prev" onclick="move(4)">オプションを修正する</button>
+        </div>
     </div>
 </div>
 
@@ -158,10 +210,19 @@ const price = {
         Basic:    { S:22000, M:24200, L:26400, '2L':28600, '3L':30800, '4L':33000 },
         Standard: { S:33000, M:35200, L:37400, '2L':39600, '3L':41800, '4L':44000 },
         Premium:  { S:44000, M:46200, L:48400, '2L':50600, '3L':52800, '4L':55000 }
-    }
+    },
+    opts: {
+        resin:       { S:8800, M:11000, L:13200, '2L':15400, '3L':17600, '4L':19800 },
+        glass_front: { S:9900, M:11550, L:13200, '2L':14850, '3L':16500, '4L':18150 }, // 研磨+コート込
+        glass_all:   { S:19800, M:23100, L:26400, '2L':29700, '3L':33000, '4L':36300 },
+        headlight:   { S:13200, M:13200, L:13200, '2L':13200, '3L':13200, '4L':13200 },
+        interior:    { S:16500, M:22000, L:27500, '2L':33000, '3L':38500, '4L':44000 },
+        suv_pack:    { S:28000, M:28000, L:28000, '2L':28000, '3L':28000, '4L':28000 }
+    },
+    maint: { S:8800, M:11000, L:13200, '2L':15400, '3L':17600, '4L':22000 }
 };
 
-let sel = { size:'S', polish:'Standard', coat:'Standard' };
+let sel = { size:'S', polish:'Standard', coat:'Standard', options: [] };
 
 function autoCalcSize() {
     const l = parseFloat(document.getElementById('vL').value) || 0;
@@ -189,10 +250,23 @@ function autoCalcSize() {
 
 function select(type, val) {
     sel[type] = val;
-    const container = event.currentTarget.parentElement;
+    const target = event.currentTarget;
+    const container = target.parentElement;
     container.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
+    target.classList.add('selected');
     if(type === "size") updatePrices();
+    calc();
+}
+
+function toggleOption(id) {
+    const target = event.currentTarget;
+    if (sel.options.includes(id)) {
+        sel.options = sel.options.filter(o => o !== id);
+        target.classList.remove('selected');
+    } else {
+        sel.options.push(id);
+        target.classList.add('selected');
+    }
     calc();
 }
 
@@ -204,14 +278,34 @@ function updatePrices() {
     document.getElementById('c1').innerText = "¥" + price.coat.Basic[s].toLocaleString();
     document.getElementById('c2').innerText = "¥" + price.coat.Standard[s].toLocaleString();
     document.getElementById('c3').innerText = "¥" + price.coat.Premium[s].toLocaleString();
+    
+    // オプション価格更新
+    document.getElementById('o_resin').innerText = "+¥" + price.opts.resin[s].toLocaleString();
+    document.getElementById('o_gf').innerText = "+¥" + price.opts.glass_front[s].toLocaleString();
+    document.getElementById('o_ga').innerText = "+¥" + price.opts.glass_all[s].toLocaleString();
+    document.getElementById('o_hl').innerText = "+¥" + price.opts.headlight[s].toLocaleString();
+    document.getElementById('o_in').innerText = "+¥" + price.opts.interior[s].toLocaleString();
+    
+    // メンテナンス価格更新
+    document.getElementById('maintPrice').innerText = price.maint[s].toLocaleString();
 }
 
 function calc() {
     const display = document.getElementById('totalDisplay');
     const isImport = document.getElementById('importCheck').checked;
-    let t = price.polish[sel.polish][sel.size] + price.coat[sel.coat][sel.size];
-    if(isImport) t = Math.floor(t * 1.2);
-    display.innerText = t.toLocaleString();
+    
+    // 基本料金
+    let base = price.polish[sel.polish][sel.size] + price.coat[sel.coat][sel.size];
+    if(isImport) base = Math.floor(base * 1.2);
+    
+    // オプション料金（オプションには外車割増を適用しないのが一般的）
+    let optTotal = 0;
+    sel.options.forEach(optId => {
+        optTotal += price.opts[optId][sel.size];
+    });
+
+    let total = base + optTotal;
+    display.innerText = total.toLocaleString();
     document.getElementById('importBadge').style.display = isImport ? "block" : "none";
 }
 
@@ -229,18 +323,19 @@ function sendLine() {
 区分: ${isImport}
 下地施工: ${sel.polish}
 コーティング: ${sel.coat}
+オプション: ${sel.options.length > 0 ? sel.options.join(', ') : 'なし'}
 合計: ¥${total}`;
     window.location.href = `https://line.me/R/oaMessage/@009zapmx/?${encodeURIComponent(msg)}`;
 }
 
 window.onload = () => {
     updatePrices();
-    calc();
     // デフォルトでStandardを選択状態にする
     document.querySelectorAll('.step').forEach(step => {
         const target = step.querySelector('.option[onclick*="Standard"]') || step.querySelector('.option');
-        if(target) target.click();
+        if(target && !target.closest('#optList')) target.click();
     });
+    calc();
 };
 </script>
 </body>
