@@ -32,10 +32,10 @@ input:checked + .slider-btn:before { transform:translateX(24px); }
 
 .option{ background:#1a1a1a; padding:15px; margin-bottom:12px; border-radius:12px; border:1px solid #333; cursor:pointer; transition:0.2s; position:relative; }
 .option.selected{ border:1px solid var(--accent); background:#16213e; }
+.price{ float:right; color:var(--accent); font-weight:bold; }
 .price-container { float:right; text-align:right; }
 .old-price { color:var(--sub); text-decoration:line-through; font-size:0.85em; display:block; }
 .new-price { color:var(--newcar); font-weight:bold; display:block; }
-.price{ color:var(--accent); font-weight:bold; }
 .desc{ font-size:0.8em; color:#aaa; margin-top:6px; line-height:1.4; }
 .rec-tag { position:absolute; top:-10px; right:10px; background:var(--recommend); color:#fff; font-size:0.75em; padding:3px 10px; border-radius:4px; font-weight:bold; z-index:1; }
 
@@ -218,7 +218,6 @@ function updatePrices() {
     if(!s) return;
     const isNew = document.getElementById('newcarCheck').checked;
     
-    // 基本料金
     document.getElementById('p1').innerText = "¥" + price.polish.Light[s].toLocaleString();
     document.getElementById('p2').innerText = "¥" + price.polish.Standard[s].toLocaleString();
     document.getElementById('p3').innerText = "¥" + price.polish.Premium[s].toLocaleString();
@@ -226,7 +225,6 @@ function updatePrices() {
     document.getElementById('c2').innerText = "¥" + price.coat.Standard[s].toLocaleString();
     document.getElementById('c3').innerText = "¥" + price.coat.Premium[s].toLocaleString();
     
-    // オプション表示の更新
     updateOptionDisplay('o_suv_area', 'suv_pack', s, isNew);
     updateOptionDisplay('o_resin_area', 'resin', s, isNew);
     updateOptionDisplay('o_gf_area', 'glass_front', s, isNew);
@@ -234,9 +232,7 @@ function updatePrices() {
     updateOptionDisplay('o_hl_area', 'headlight', s, isNew);
     updateOptionDisplay('o_in_area', 'interior', s, isNew);
 
-    // ヘッドライトタイトルの切り替え
-    document.getElementById('hl_title').innerText = isNew ? "ヘッドライトコーティングのみ" : "ヘッドライト研磨+コート";
-    
+    document.getElementById('hl_title').innerText = isNew ? "（ヘッドライトコーティング）" : "ヘッドライト研磨+コート";
     document.getElementById('maintPrice').innerText = price.maint[s].toLocaleString();
 }
 
