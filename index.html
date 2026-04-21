@@ -37,6 +37,9 @@ input:checked + .slider-btn:before { transform:translateX(24px); }
 
 .option{ background:#1a1a1a; padding:15px; margin-bottom:12px; border-radius:12px; border:1px solid #333; cursor:pointer; transition:0.2s; position:relative; }
 .option.selected{ border:1px solid var(--accent); background:#16213e; }
+.option.recommend-border { border: 2px solid var(--recommend); }
+.pop-badge { position: absolute; top: -10px; left: 10px; background: var(--recommend); color: white; font-size: 0.7em; padding: 2px 8px; border-radius: 4px; font-weight: bold; z-index: 1; }
+
 .price{ float:right; color:var(--accent); font-weight:bold; }
 .price-container { float:right; text-align:right; }
 .old-price { color:var(--sub); text-decoration:line-through; font-size:0.85em; display:block; }
@@ -119,7 +122,14 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 
     <div class="step" id="step4">
         <h3>04 オプションを選択</h3>
-        <div class="option" onclick="toggleOption('cas_std')"><div class="price-container" id="o_cas_area"></div>C.A.Sスタンダードセット</div>
+        
+        <div class="option recommend-border" onclick="toggleOption('cas_std')">
+            <div class="pop-badge">人気No.1</div>
+            <div class="price-container" id="o_cas_area"></div>
+            <strong>C.A.Sスタンダードセット</strong>
+            <div class="desc">樹脂パーツ＋窓ガラス研磨コート（前）のお得なセットです。</div>
+        </div>
+
         <div id="optList">
             <div class="option" onclick="toggleOption('resin')"><div class="price-container" id="o_resin_area"></div>樹脂パーツコート</div>
             <div class="option" onclick="toggleOption('glass_front')"><div class="price-container" id="o_gf_area"></div>窓ガラス研磨コート(前)</div>
@@ -182,8 +192,7 @@ function autoCalcSize() {
     document.getElementById('volRes').innerText = vol.toFixed(2);
     
     let ds = null;
-    // 画像の表に基づいた正確な判定
-    if (vol > 0 && vol < 8.0) ds = "S"; // 軽自動車相当の目安
+    if (vol > 0 && vol < 8.0) ds = "S";
     else if (vol >= 0 && vol < 10.5) ds = "M";
     else if (vol >= 10.5 && vol < 12.3) ds = "L";
     else if (vol >= 12.3 && vol < 14.0) ds = "2L";
