@@ -11,6 +11,14 @@ body{ margin:0; background:#000; color:#fff; font-family:sans-serif; display:fle
 h2{ text-align:center; letter-spacing:3px; border-bottom:1px solid #333; padding-bottom:10px; color:var(--gold); }
 .step{display:none;}
 .step.active{display:block;}
+
+/* イントロ用スタイル */
+.intro-card { background:#1a1a1a; padding:20px; border-radius:15px; border:1px solid var(--gold); margin-bottom:20px; }
+.intro-title { color:var(--gold); font-weight:bold; font-size:1.1em; margin-bottom:15px; text-align:center; }
+.reason-item { margin-bottom:15px; border-left:2px solid var(--gold); padding-left:12px; }
+.reason-item strong { display:block; color:#fff; font-size:0.95em; margin-bottom:4px; }
+.reason-item p { margin:0; font-size:0.8em; color:var(--sub); line-height:1.5; }
+
 .visual-frame{ width:100%; height:200px; background:#222; border-radius:12px; margin-bottom:15px; overflow:hidden; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
 .visual-frame img{ width:100%; height:100%; object-fit:cover; }
 .calc-tool { background:#1a1a1a; padding:15px; border-radius:12px; border:1px solid #444; margin-bottom:20px; }
@@ -54,7 +62,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 .next{background:var(--accent);color:#fff;}
 .prev{background:#222;color:#aaa;}
 .line-btn{background:var(--line);color:#fff; font-size:1.1em; margin-top:20px;}
-.total-panel{ position:fixed; bottom:15px; left:50%; transform:translateX(-50%); width:90%; max-width:450px; background:linear-gradient(135deg, #1e293b, #0f172a); padding:15px; border-radius:16px; text-align:center; border:1px solid var(--accent); z-index:100; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+.total-panel{ position:fixed; bottom:15px; left:50%; transform:translateX(-50%); width:90%; max-width:450px; background:linear-gradient(135deg, #1e293b, #0f172a); padding:15px; border-radius:16px; text-align:center; border:1px solid var(--accent); z-index:100; box-shadow:0 10px 30px rgba(0,0,0,0.5); display:none; }
 .badge-area { display:flex; justify-content:center; gap:10px; margin-bottom:5px; font-size:0.75em; font-weight:bold; }
 #importBadge { color:var(--gold); display:none; }
 #newcarBadge { color:var(--newcar); display:none; }
@@ -65,10 +73,33 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 <div class="container">
     <h2>C.A.S ESTIMATE</h2>
 
-    <div class="step active" id="step1">
+    <div class="step active" id="step0">
         <div class="visual-frame">
-            <img src="https://raw.githubusercontent.com/caspremiumcardetailing/C.A.S2/a10f81c68c35a6ab199c85ca53edc9d8f26548de/%E9%81%93%E7%84%A1%E3%81%8D%E6%99%82%E4%BB%A3%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%82%86%E3%81%91%E3%80%82%20ALL%20NEW%20LAND%20CRUISER%EF%BC%81.png" alt="LAND CRUISER">
+            <img src="https://raw.githubusercontent.com/caspremiumcardetailing/C.A.S2/a10f81c68c35a6ab199c85ca53edc9d8f26548de/%E9%81%93%E7%84%A1%E3%81%8D%E6%99%82%E4%BB%A3%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%82%86%E3%81%91%E3%80%82%20ALL%20NEW%20LAND%20CRUISER%EF%BC%81.png" alt="C.A.S Visual">
         </div>
+        <div class="intro-card">
+            <div class="intro-title">なぜ、高品質を適正価格で提供できるのか？</div>
+            
+            <div class="reason-item">
+                <strong>1. 徹底したコストカット</strong>
+                <p>大手ショップのような多額の広告費や固定費を排除。その分、施工価格を抑えてお客様へ還元しています。</p>
+            </div>
+            
+            <div class="reason-item">
+                <strong>2. プロ専用溶剤の「直仕入れ」</strong>
+                <p>職人が自らテストし厳選した「無溶剤セラミック」をメーカーから直接調達。中間マージンをカットしています。</p>
+            </div>
+            
+            <div class="reason-item">
+                <strong>3. 職人直営のこだわり</strong>
+                <p>受付から施工まで一貫して職人が担当。カジュアルな相談のしやすさと、一切妥協のないクオリティを両立させました。</p>
+            </div>
+        </div>
+        <p style="font-size:0.85em; text-align:center; color:var(--sub); line-height:1.6;">「本物のコーティングを、もっと身近に。」<br>自信があるからできる、明朗会計の1分見積もりをどうぞ。</p>
+        <button class="next" onclick="move(1)">1分見積もりをはじめる</button>
+    </div>
+
+    <div class="step" id="step1">
         <h3>01 車種サイズを選択</h3>
         
         <div class="toggle-option pink">
@@ -99,6 +130,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
             <div class="option" data-size="4L" onclick="select('size','4L')">4Lサイズ <small>(17.0〜)</small></div>
         </div>
         <button class="next" onclick="move(2)">下地処理を選択へ</button>
+        <button class="prev" style="margin-top:20px" onclick="move(0)">こだわりを見る</button>
     </div>
 
     <div class="step" id="step2">
@@ -117,45 +149,20 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
     <div class="step" id="step3">
         <h3>03 コーティングを選択</h3>
         <div class="info-box">
-            <strong>こだわりの「無溶剤セラミック」</strong><br>
-            一般的な溶剤入りコートと違い、乾燥時に成分が蒸発して痩せることがありません。<b>塗った成分が100%ボディに定着</b>するため、圧倒的な「膜厚」と「深い艶」が持続します。
+            <strong>なぜ安いのか？</strong><br>
+            大手ブランドの看板代や広告費を徹底排除。職人が厳選した「最高級溶剤」を自社仕入れすることで、<b>他店では15〜25万円するクオリティを適正価格で提供</b>しています。
         </div>
-        
-        <div class="option" onclick="select('coat','Basic')">
-            <span class="price" id="c1">¥0</span>Basic
-            <div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備え、日常のお手入れを楽にします。</div>
-        </div>
-        
-        <div class="option" onclick="select('coat','Standard')">
-            <span class="price" id="c2">¥0</span>Standard
-            <div class="desc"><b>高密度・無溶剤セラミック。</b>成分が蒸発せずに固まるため、従来のガラスを凌駕する膜厚と硬度で、深い艶と圧倒的な保護性能を発揮します。</div>
-        </div>
-        
-        <div class="option" onclick="select('coat','Premium')">
-            <span class="price" id="c3">¥0</span>Premium
-            <div class="desc"><b>2層構造の無溶剤セラミック。</b>「100%定着」する膜を贅沢に重ねることで、最高レベルの防汚性と、濡れたような官能的な光沢を実現します。</div>
-        </div>
-
-        <div class="option gold-border" onclick="select('coat','Executive')">
-            <div class="pop-badge gold-bg">最高峰</div>
-            <span class="price" id="c4">¥0</span>Executive
-            <div class="desc">【究極】一般的には<b>15〜25万円（G'ZOXハイモースコート等）</b>とされる最高級ポリシラザン2層構造。C.A.S最高ランクの保護性能です。</div>
-        </div>
-
+        <div class="option" onclick="select('coat','Basic')"><span class="price" id="c1">¥0</span>Basic<div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備え、日常のお手入れを楽にします。</div></div>
+        <div class="option" onclick="select('coat','Standard')"><span class="price" id="c2">¥0</span>Standard<div class="desc"><b>高密度・無溶剤セラミック。</b>成分が蒸発せずに固まるため、従来のガラスを凌駕する膜厚と硬度で、深い艶と圧倒的な保護性能を発揮します。</div></div>
+        <div class="option" onclick="select('coat','Premium')"><span class="price" id="c3">¥0</span>Premium<div class="desc"><b>2層構造の無溶剤セラミック。</b>「成分が100%定着」する膜を贅沢に重ねることで、最高レベルの防汚性と、濡れたような官能的な光沢を実現します。</div></div>
+        <div class="option gold-border" onclick="select('coat','Executive')"><div class="pop-badge gold-bg">最高峰</div><span class="price" id="c4">¥0</span>Executive<div class="desc">【究極】一般的には<b>15〜25万円（G'ZOXハイモースコート等）</b>とされる最高級ポリシラザン2層構造。C.A.S最高ランクの保護性能です。</div></div>
         <button class="prev" onclick="move(2)">戻る</button>
         <button class="next" onclick="move(4)">オプション選択へ</button>
     </div>
 
     <div class="step" id="step4">
         <h3>04 オプションを選択</h3>
-        
-        <div class="option special-border" onclick="toggleOption('cas_std')">
-            <div class="pop-badge">人気</div>
-            <div class="price-container" id="o_cas_area"></div>
-            <strong>C.A.Sスタンダードセット</strong>
-            <div class="desc">未塗装樹脂の白ボケを防ぐ樹脂パーツコートと、窓ガラス研磨コート（前）のお得なセットです。</div>
-        </div>
-
+        <div class="option special-border" onclick="toggleOption('cas_std')"><div class="pop-badge">人気</div><div class="price-container" id="o_cas_area"></div><strong>C.A.Sスタンダードセット</strong><div class="desc">未塗装樹脂の白ボケを防ぐ樹脂パーツコートと、窓ガラス研磨コート（前）のお得なセットです。</div></div>
         <div id="optList">
             <div class="option" onclick="toggleOption('resin')"><div class="price-container" id="o_resin_area"></div>樹脂パーツコート<div class="desc">SUV等の未塗装樹脂を黒々と保ちます。</div></div>
             <div class="option" onclick="toggleOption('glass_front')"><div class="price-container" id="o_gf_area"></div>窓ガラス研磨コート(前)<div class="desc">フロントガラスの油膜を除去し撥水します。</div></div>
@@ -179,7 +186,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
     </div>
 </div>
 
-<div class="total-panel">
+<div class="total-panel" id="totalPanel">
     <div class="badge-area"><div id="newcarBadge">新車割引適用</div><div id="importBadge">輸入車割増適用</div></div>
     概算合計 ¥<span id="totalDisplay" style="font-size:1.6em; font-weight:bold;">0</span>
 </div>
@@ -217,35 +224,19 @@ function autoCalcSize() {
     const h = parseFloat(document.getElementById('vH').value) || 0;
     const vol = (l * w * h) / 1000000;
     document.getElementById('volRes').innerText = vol.toFixed(2);
-    
-    let ds = null;
-    if (vol > 0 && vol < 8.0) ds = "S";
-    else if (vol >= 0 && vol < 10.5) ds = "M";
-    else if (vol >= 10.5 && vol < 12.3) ds = "L";
-    else if (vol >= 12.3 && vol < 14.0) ds = "2L";
-    else if (vol >= 14.0 && vol < 17.0) ds = "3L";
-    else if (vol >= 17.0) ds = "4L";
-    
+    let ds = (vol > 0 && vol < 8.0) ? "S" : (vol < 10.5) ? "M" : (vol < 12.3) ? "L" : (vol < 14.0) ? "2L" : (vol < 17.0) ? "3L" : (vol >= 17.0) ? "4L" : null;
     if(ds) {
         document.getElementById('sizeRes').innerText = ds + "サイズ";
         document.querySelectorAll('#sizeOptions .option').forEach(el => el.classList.remove('selected'));
         const targetOpt = document.querySelector(`#sizeOptions .option[data-size="${ds}"]`);
-        if(targetOpt) {
-            targetOpt.classList.add('selected');
-            sel.size = ds;
-            updatePrices();
-            calc();
-        }
-    } else {
-        document.getElementById('sizeRes').innerText = "未選択";
+        if(targetOpt) { targetOpt.classList.add('selected'); sel.size = ds; updatePrices(); calc(); }
     }
 }
 
 function select(type, val) {
     sel[type] = val;
-    const target = event.currentTarget;
-    target.parentElement.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
-    target.classList.add('selected');
+    event.currentTarget.parentElement.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
     if(type === "size") updatePrices();
     calc();
 }
@@ -264,58 +255,40 @@ function toggleOption(id) {
 function toggleNewCarEffect() {
     const isNew = document.getElementById('newcarCheck').checked;
     const importWrap = document.getElementById('importToggleWrap');
-    const importCheck = document.getElementById('importCheck');
-    const msg = document.getElementById('newcarImportMsg');
     if(isNew) {
-        importCheck.checked = false; 
+        document.getElementById('importCheck').checked = false; 
         importWrap.classList.add('disabled');
-        msg.style.display = "block";
+        document.getElementById('newcarImportMsg').style.display = "block";
     } else {
         importWrap.classList.remove('disabled');
-        msg.style.display = "none";
+        document.getElementById('newcarImportMsg').style.display = "none";
     }
     updatePrices();
     calc();
 }
 
-function getStdPackEx(size) {
-    return priceEx.opts.resin[size] + priceEx.opts.glass_front[size] - 5000;
-}
-
 function updatePrices() {
-    let s = sel.size;
-    if(!s) return;
+    let s = sel.size; if(!s) return;
     const isNew = document.getElementById('newcarCheck').checked;
-    
-    document.getElementById('p1').innerText = "¥" + tax(priceEx.polish.Light[s]).toLocaleString();
-    document.getElementById('p2').innerText = "¥" + tax(priceEx.polish.Standard[s]).toLocaleString();
-    document.getElementById('p3').innerText = "¥" + tax(priceEx.polish.Premium[s]).toLocaleString();
-    
-    document.getElementById('c1').innerText = "¥" + tax(priceEx.coat.Basic[s]).toLocaleString();
-    document.getElementById('c2').innerText = "¥" + tax(priceEx.coat.Standard[s]).toLocaleString();
-    document.getElementById('c3').innerText = "¥" + tax(priceEx.coat.Premium[s]).toLocaleString();
-    document.getElementById('c4').innerText = "¥" + tax(priceEx.coat.Executive[s]).toLocaleString();
-    
+    ['p1','p2','p3'].forEach((id, i) => document.getElementById(id).innerText = "¥" + tax(Object.values(priceEx.polish)[i][s]).toLocaleString());
+    ['c1','c2','c3','c4'].forEach((id, i) => document.getElementById(id).innerText = "¥" + tax(Object.values(priceEx.coat)[i][s]).toLocaleString());
     updateOptionDisplay('o_cas_area', 'cas_std', s, isNew);
     updateOptionDisplay('o_resin_area', 'resin', s, isNew);
     updateOptionDisplay('o_gf_area', 'glass_front', s, isNew);
     updateOptionDisplay('o_ga_area', 'glass_all', s, isNew);
     updateOptionDisplay('o_hl_area', 'headlight', s, isNew);
     updateOptionDisplay('o_in_area', 'interior', s, isNew);
-    document.getElementById('hl_title').innerText = isNew ? "ヘッドライトコート" : "ヘッドライト研磨+コート";
     document.getElementById('maintPrice').innerText = tax(priceEx.maint[s]).toLocaleString();
 }
 
 function updateOptionDisplay(elementId, optId, size, isNew) {
     const area = document.getElementById(elementId);
-    let originalEx = (optId === 'cas_std') ? getStdPackEx(size) : priceEx.opts[optId][size];
-    let discountedEx = originalEx;
+    let orig = (optId === 'cas_std') ? (priceEx.opts.resin[size] + priceEx.opts.glass_front[size] - 5000) : priceEx.opts[optId][size];
     if(isNew) {
-        if(optId === 'headlight') discountedEx = originalEx / 2;
-        else discountedEx = originalEx * 0.8; 
-        area.innerHTML = `<span class="old-price">¥${tax(originalEx).toLocaleString()}</span><span class="new-price">¥${tax(discountedEx).toLocaleString()}</span>`;
+        let disc = (optId === 'headlight') ? orig / 2 : orig * 0.8;
+        area.innerHTML = `<span class="old-price">¥${tax(orig).toLocaleString()}</span><span class="new-price">¥${tax(disc).toLocaleString()}</span>`;
     } else {
-        area.innerHTML = `<span class="price">¥${tax(originalEx).toLocaleString()}</span>`;
+        area.innerHTML = `<span class="price">¥${tax(orig).toLocaleString()}</span>`;
     }
 }
 
@@ -323,43 +296,32 @@ function calc() {
     if(!sel.size) return;
     const isNew = document.getElementById('newcarCheck').checked;
     const isImport = !isNew && document.getElementById('importCheck').checked; 
-    let polishEx = sel.polish ? priceEx.polish[sel.polish][sel.size] : 0;
-    let coatEx = sel.coat ? priceEx.coat[sel.coat][sel.size] : 0;
-    let baseEx = polishEx + coatEx;
-    if(isImport) baseEx = baseEx * 1.2;
-    let optTotalEx = 0;
+    let base = (sel.polish ? priceEx.polish[sel.polish][sel.size] : 0) + (sel.coat ? priceEx.coat[sel.coat][sel.size] : 0);
+    if(isImport) base *= 1.2;
+    let optTotal = 0;
     sel.options.forEach(id => { 
-        let pEx = (id === 'cas_std') ? getStdPackEx(sel.size) : priceEx.opts[id][sel.size];
-        if(isNew) {
-            if(id === 'headlight') pEx = pEx / 2;
-            else pEx = pEx * 0.8;
-        }
-        optTotalEx += pEx; 
+        let p = (id === 'cas_std') ? (priceEx.opts.resin[sel.size] + priceEx.opts.glass_front[sel.size] - 5000) : priceEx.opts[id][sel.size];
+        optTotal += isNew ? (id === 'headlight' ? p / 2 : p * 0.8) : p;
     });
-    document.getElementById('totalDisplay').innerText = tax(baseEx + optTotalEx).toLocaleString();
+    document.getElementById('totalDisplay').innerText = tax(base + optTotal).toLocaleString();
     document.getElementById('importBadge').style.display = isImport ? "block" : "none";
     document.getElementById('newcarBadge').style.display = isNew ? "block" : "none";
 }
 
 function move(n) {
-    if(n > 1 && !sel.size) { alert("まずは車種サイズを選択してください。"); return; }
-    if(n > 2 && !sel.polish) { alert("下地処理（研磨）のプランを選択してください。"); return; }
-    if(n > 3 && !sel.coat) { alert("コーティングのプランを選択してください。"); return; }
-    
+    if(n === 1) document.getElementById('totalPanel').style.display = "block";
+    if(n === 0) document.getElementById('totalPanel').style.display = "none";
+    if(n > 1 && !sel.size) { alert("サイズを選択してください"); return; }
+    if(n > 2 && !sel.polish) { alert("下地処理を選択してください"); return; }
+    if(n > 3 && !sel.coat) { alert("コーティングを選択してください"); return; }
     document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById('step' + n).classList.add('active');
     window.scrollTo(0,0);
 }
 
 function sendLine() {
-    if(!sel.size || !sel.polish || !sel.coat) {
-        alert("未選択の項目があります。各ステップを確認してください。");
-        return;
-    }
     const isNew = document.getElementById('newcarCheck').checked;
-    const isImport = !isNew && document.getElementById('importCheck').checked ? "輸入車" : "国産車";
-    const condition = isNew ? "新車" : "経年車";
-    const msg = `【見積依頼】\n区分: ${isImport} / ${condition}\nサイズ: ${sel.size}\n下地: ${sel.polish}\nコート: ${sel.coat}\nオプション: ${sel.options.join(', ') || 'なし'}\n合計: ¥${document.getElementById('totalDisplay').innerText}`;
+    const msg = `【見積依頼】\n区分: ${isNew ? '新車' : '経年車'}\nサイズ: ${sel.size}\n下地: ${sel.polish}\nコート: ${sel.coat}\nオプション: ${sel.options.join(', ') || 'なし'}\n合計: ¥${document.getElementById('totalDisplay').innerText}`;
     window.location.href = `https://line.me/R/oaMessage/@009zapmx/?${encodeURIComponent(msg)}`;
 }
 </script>
