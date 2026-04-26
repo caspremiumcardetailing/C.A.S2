@@ -35,10 +35,17 @@ input:checked + .slider-btn { background-color:var(--gold); }
 input:checked.newcar-switch + .slider-btn { background-color:var(--newcar); }
 input:checked + .slider-btn:before { transform:translateX(24px); }
 
-.option{ background:#1a1a1a; padding:15px; margin-bottom:12px; border-radius:12px; border:1px solid #333; cursor:pointer; transition:0.2s; position:relative; }
-.option.selected{ border:1px solid var(--accent); background:#16213e; }
-.option.recommend-border { border: 2px solid var(--recommend); }
+/* --- 選択肢のスタイル改善 --- */
+.option{ background:#1a1a1a; padding:15px; margin-bottom:12px; border-radius:12px; border:1px solid #333; cursor:pointer; transition:0.2s; position:relative; box-sizing: border-box; }
+/* 未選択時の特別枠（赤・金）を「点線」や「薄い色」に変更して、選択時と差別化 */
+.option.special-border { border: 1px dashed var(--recommend); } 
+.option.gold-border { border: 1px dashed var(--gold); }
+
+/* 選択された時のスタイル（最優先） */
+.option.selected{ border: 2px solid var(--accent) !important; background:#16213e; }
+
 .pop-badge { position: absolute; top: -10px; left: 10px; background: var(--recommend); color: white; font-size: 0.7em; padding: 2px 8px; border-radius: 4px; font-weight: bold; z-index: 1; }
+.pop-badge.gold-bg { background: var(--gold); color: #000; }
 
 .price{ float:right; color:var(--accent); font-weight:bold; }
 .price-container { float:right; text-align:right; }
@@ -105,7 +112,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
             通常の洗車では落とせない<b>頑固な水垢、油分、ボディのザラつき（鉄粉）</b>を除去し、研磨で塗装面を平滑に整える工程です。
         </div>
         <div class="option" onclick="select('polish','Light')"><span class="price" id="p1">¥0</span>Light<div class="desc">【新車・低走行車向け】新車の塗装を活かした軽研磨です。納車時の微細なキズやくすみを取り除き、本来の艶を引き出します。</div></div>
-        <div class="option" onclick="select('polish','Standard')"><span class="price" id="p2">¥0</span>Standard<div class="desc">【オススメ】蓄積した水垢や洗車キズを徹底除去。中古車や経年車が見違えるほどクリアで平滑な塗装面に生まれ変わります。</div></div>
+        <div class="option" onclick="select('polish','Standard')"><span class="price" id="p2">¥0</span>Standard<div class="desc">蓄積した水垢や洗車キズを徹底除去。中古車や経年車が見違えるほどクリアで平滑な塗装面に生まれ変わります。</div></div>
         <div class="option" onclick="select('polish','Premium')"><span class="price" id="p3">¥0</span>Premium<div class="desc">【最高品質】妥協なき鏡面研磨。塗装の厚みを考慮しつつ、極限まで艶を追い求めます。ショーコンディションを求める方へ。</div></div>
         <button class="prev" onclick="move(1)">戻る</button>
         <button class="next" onclick="move(3)">コーティング選択へ</button>
@@ -125,16 +132,16 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         
         <div class="option" onclick="select('coat','Standard')">
             <span class="price" id="c2">¥0</span>Standard
-            <div class="desc">【CAS推奨】高密度セラミック配合コート。従来のガラスを凌駕する膜厚と硬度で、深い艶と圧倒的な耐薬品性能を発揮します。</div>
+            <div class="desc">高密度セラミック配合コート。従来のガラスを凌駕する膜厚と硬度で、深い艶と圧倒的な耐薬品性能を発揮します。</div>
         </div>
         
         <div class="option" onclick="select('coat','Premium')">
             <span class="price" id="c3">¥0</span>Premium
-            <div class="desc">【高耐久】2層構造のセラミック。最高レベルの防汚性と、濡れたような官能的な光沢が長期間持続する贅沢なプランです。</div>
+            <div class="desc">2層構造のセラミック。最高レベルの防汚性と、濡れたような官能的な光沢が長期間持続する贅沢なプランです。</div>
         </div>
 
-        <div class="option recommend-border" onclick="select('coat','Executive')">
-            <div class="pop-badge">最高峰</div>
+        <div class="option gold-border" onclick="select('coat','Executive')">
+            <div class="pop-badge gold-bg">最高峰</div>
             <span class="price" id="c4">¥0</span>Executive
             <div class="desc">【究極】セラミックの上を行く「ナノプレミアム」。<b>一般的には15〜25万円（ハイモースコート等）</b>とされる最高級ポリシラザン2層構造。C.A.S最高ランクの保護性能です。</div>
         </div>
@@ -146,11 +153,11 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
     <div class="step" id="step4">
         <h3>04 オプションを選択</h3>
         
-        <div class="option recommend-border" onclick="toggleOption('cas_std')">
-            <div class="pop-badge">人気No.1</div>
+        <div class="option special-border" onclick="toggleOption('cas_std')">
+            <div class="pop-badge">人気</div>
             <div class="price-container" id="o_cas_area"></div>
             <strong>C.A.Sスタンダードセット</strong>
-            <div class="desc">未塗装樹脂の白ボケを防ぐ樹脂パーツコートと、視界をクリアにする窓ガラス研磨コート（前）のお得なセットです。</div>
+            <div class="desc">未塗装樹脂の白ボケを防ぐ樹脂パーツコートと、窓ガラス研磨コート（前）のお得なセットです。</div>
         </div>
 
         <div id="optList">
