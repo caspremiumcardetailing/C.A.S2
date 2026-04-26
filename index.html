@@ -87,16 +87,16 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         <div class="intro-card">
             <div class="intro-title">職人直営だから実現できる、本物の品質</div>
             <div class="reason-item">
-                <strong>1. 職人直営による適正価格</strong>
-                <p>受付から施工まで職人が直接一貫対応。営業経費をカットし、施工品質に還元しています。</p>
+                <strong>1. 徹底したコストカット</strong>
+                <p>広告費や店舗維持費を最小限に。その分を高品質な液剤と施工技術に還元し、自信を持って適正価格を提示します。</p>
             </div>
             <div class="reason-item">
                 <strong>2. 直仕入れの液剤へのこだわり</strong>
-                <p>本当に「良い」と確信した液剤をメーカーから直接調達。中間マージンを排除しています。</p>
+                <p>職人自らテストを繰り返し、納得したものだけをメーカーから直接調達。有名ブランドに頼らず、本当に「良い」と確信した液剤のみを使用します。</p>
             </div>
             <div class="reason-item">
                 <strong>3. 安心の施工証明・保証制度</strong>
-                <p>全プラン施工証明書を発行。万が一の事故の際も、<b>車両保険を適用した再施工</b>が可能です。</p>
+                <p>全てのコーティングに施工証明書を発行。万が一の事故の際も、<b>車両保険を適用した再施工</b>が可能です。職人が最後まで責任を持ってサポートします。</p>
             </div>
         </div>
         <button class="next" onclick="move(1)">1分見積もりをはじめる</button>
@@ -134,31 +134,47 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 
     <div class="step" id="step2">
         <h3>02 下地処理（研磨）を選択</h3>
-        <div class="option" onclick="select('polish','Light')"><span class="price" id="p1">¥0</span>Light<div class="desc">【新車・低走行車向け】軽研磨で微細なキズを取り除きます。</div></div>
-        <div class="option" onclick="select('polish','Standard')"><span class="price" id="p2">¥0</span>Standard<div class="desc">水垢や洗車キズを徹底除去。クリアな塗装面に蘇らせます。</div></div>
-        <div class="option" onclick="select('polish','Premium')"><span class="price" id="p3">¥0</span>Premium<div class="desc">【鏡面研磨】妥協なく最高級の艶を引き出します。</div></div>
+        <div class="info-box">
+            <strong>【職人の下地処理】</strong><br>
+            通常の洗車では落ちない水垢、油分、鉄粉を徹底除去。熟練の研磨技術で塗装面を整えることで、コーティングの定着率を劇的に高めます。この工程が仕上がりの8割を決定します。
+        </div>
+        <div class="option" onclick="select('polish','Light')"><span class="price" id="p1">¥0</span>Light<div class="desc">【新車・低走行車向け】軽研磨で微細なキズやくすみを取り除き、コーティングの密着性を高めるためのベースを作ります。</div></div>
+        <div class="option" onclick="select('polish','Standard')"><span class="price" id="p2">¥0</span>Standard<div class="desc">【経年車におすすめ】長年蓄積した水垢や洗車キズを徹底的に除去。クリアな塗装面に蘇らせ、新車以上の輝きを引き出します。</div></div>
+        <div class="option" onclick="select('polish','Premium')"><span class="price" id="p3">¥0</span>Premium<div class="desc">【鏡面研磨】職人が妥協なくキズを追い求め、最高級の艶と深みを実現します。展示車レベルの究極の仕上がりを求める方に。</div></div>
         <button class="prev" onclick="move(1)">戻る</button>
         <button class="next" onclick="move(3)">コーティング選択へ</button>
     </div>
 
     <div class="step" id="step3">
         <h3>03 コーティングを選択</h3>
+        <div class="info-box">
+            <strong>【安心の全プラン保証付】</strong><br>
+            全施工に「施工証明書」を発行します。万が一の事故の際、車両保険でコーティングの再施工が受けられるため、資産価値の維持にも繋がります。
+        </div>
+        
         <div class="option" onclick="select('coat','Basic')">
-            <span class="price" id="c1">¥0</span>Basic <span class="guarantee-tag">[1年保証]</span>
-            <div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備えます。</div>
+            <span class="price" id="c1">¥0</span>
+            Basic <span class="guarantee-tag">[1年保証]</span>
+            <div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備え、日常のお手入れを劇的に楽にします。まずは試してみたい方に。</div>
         </div>
+        
         <div class="option" onclick="select('coat','Standard')">
-            <span class="price" id="c2">¥0</span>Standard <span class="guarantee-tag">[3年保証]</span>
-            <div class="desc"><b>高密度・無溶剤セラミック。</b>従来のガラスを凌駕する圧倒的な膜厚。</div>
+            <span class="price" id="c2">¥0</span>
+            Standard <span class="guarantee-tag">[3年保証]</span>
+            <div class="desc"><b>高密度・無溶剤セラミック。</b>成分が蒸発せず100%塗装に定着。従来のガラスを凌駕する圧倒的な膜厚で、深い艶と防汚性が長期間持続します。</div>
         </div>
+        
         <div class="option" onclick="select('coat','Premium')">
-            <span class="price" id="c3">¥0</span>Premium <span class="guarantee-tag">[5年保証]</span>
-            <div class="desc"><b>2層構造の無溶剤セラミック。</b>濡れたような深い光沢を長く。</div>
+            <span class="price" id="c3">¥0</span>
+            Premium <span class="guarantee-tag">[5年保証]</span>
+            <div class="desc"><b>2層構造の無溶剤セラミック。</b>ベースとトップで役割を分けた贅沢な2層構造。最高レベルの耐薬品性と保護性能を誇り、濡れたような深い光沢を維持します。</div>
         </div>
+
         <div class="option gold-border" onclick="select('coat','Executive')">
-            <div class="pop-badge gold-bg">最高峰</div>
-            <span class="price" id="c4">¥0</span>Executive <span class="guarantee-tag">[5年超保証]</span>
-            <div class="desc"><b>【究極】最高級ポリシラザン2層構造。</b>G'ZOXハイモースコート等（15〜25万）を凌駕する保護性能。</div>
+            <div class="pop-badge gold-bg">オススメ</div>
+            <span class="price" id="c4">¥0</span>
+            Executive <span class="guarantee-tag">[5年超保証]</span>
+            <div class="desc"><b>【究極】最高級ポリシラザン2層構造。</b>他店でのG'ZOXハイモースコート等（15〜25万円相当）に匹敵、または凌駕するC.A.S最高ランク。熱や紫外線からも塗装を守り抜く最強の盾です。</div>
         </div>
         <button class="prev" onclick="move(2)">戻る</button>
         <button class="next" onclick="move(4)">オプション選択へ</button>
@@ -170,26 +186,39 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
             <div class="pop-badge">セット割引適用</div>
             <div class="price-container" id="o_cas_area"></div>
             <strong>C.A.Sスタンダードセット</strong>
-            <div class="desc">樹脂パーツコート ＋ 窓ガラス研磨コート（前）のお得なセット</div>
+            <div class="desc">樹脂パーツコート ＋ 窓ガラス研磨コート（前）のお得なセット。外観の引き締めと視界確保を同時に。</div>
         </div>
         <div id="optList">
-            <div class="option" onclick="toggleOption('resin')"><div class="price-container" id="o_resin_area"></div>樹脂パーツコート</div>
-            <div class="option" onclick="toggleOption('glass_front')"><div class="price-container" id="o_gf_area"></div>窓ガラス研磨コート(前)</div>
-            <div class="option" onclick="toggleOption('glass_all')"><div class="price-container" id="o_ga_area"></div>窓ガラス研磨コート(全面)</div>
-            <div class="option" onclick="toggleOption('headlight')"><div class="price-container" id="o_hl_area"></div>ヘッドライト研磨+コート</div>
-            <div class="option" onclick="toggleOption('interior')"><div class="price-container" id="o_in_area"></div>内装コーティング</div>
+            <div class="option" onclick="toggleOption('resin')"><div class="price-container" id="o_resin_area"></div>樹脂パーツコート<div class="desc">白濁した樹脂を黒々と復活させ、劣化を防ぎます。</div></div>
+            <div class="option" onclick="toggleOption('glass_front')"><div class="price-container" id="o_gf_area"></div>窓ガラス研磨コート(前)<div class="desc">油膜を研磨で除去し、超撥水コートを施工。雨天の視界が激変します。</div></div>
+            <div class="option" onclick="toggleOption('glass_all')"><div class="price-container" id="o_ga_area"></div>窓ガラス研磨コート(全面)<div class="desc">全ての窓ガラスに施工。ウロコ付着を防ぎ、車全体の透明感を高めます。</div></div>
+            <div class="option" onclick="toggleOption('headlight')"><div class="price-container" id="o_hl_area"></div>ヘッドライト研磨+コート<div class="desc">黄ばみを除去し、専用コートで透明感を長期間保護します。</div></div>
+            <div class="option" onclick="toggleOption('interior')"><div class="price-container" id="o_in_area"></div>内装コーティング<div class="desc">シートやパネルの擦れ・汚れを防ぎ、レザーの質感も守ります。</div></div>
         </div>
         <button class="prev" onclick="move(3)">戻る</button>
         <button class="next" onclick="move(5)">アフターケア確認へ</button>
     </div>
 
     <div class="step" id="step5">
-        <h3>05 アフターケア</h3>
+        <h3>05 アフターケア・保証</h3>
+        <div class="intro-card" style="border-color: var(--accent);">
+            <div class="intro-title" style="color: var(--accent);">職人による定期メンテナンス</div>
+            <div class="desc" style="color:#eee; margin-bottom:10px;">
+                施工して終わりではありません。半年〜1年ごとのプロメンテナンスで美しい状態を維持し、保証を継続いただけます。
+            </div>
+            <ul class="maint-list">
+                <li><strong>細部洗車</strong>（隙間の汚れまで徹底洗浄）</li>
+                <li><strong>水垢・スケール除去</strong>（艶の低下を防ぐ）</li>
+                <li><strong>鉄粉除去</strong>（ボディのざらつきを解消）</li>
+                <li><strong>専用トップコート施工</strong>（撥水と光沢を復元）</li>
+            </ul>
+        </div>
         <div class="calc-tool">
             <div style="color:var(--gold); font-weight:bold;">定期メンテナンス費用</div>
             <div style="font-size:1.2em; color:var(--accent);">¥<span id="maintPrice">0</span> <small>(税込)</small></div>
             <p style="font-size:0.75em; color:var(--sub); margin-top:10px;">
-                ※全プラン、事故時に保険請求が可能な「施工証明書」を発行。
+                ※全プラン、事故時に保険請求が可能な「施工証明書」を発行。<br>
+                ※保証期間終了後もメンテナンスは有料にて継続可能です。
             </p>
         </div>
         <button class="line-btn" onclick="sendLine()">この内容でLINE相談・予約</button>
@@ -282,7 +311,6 @@ function updatePrices() {
     ['p1','p2','p3'].forEach((id, i) => document.getElementById(id).innerText = "¥" + tax(Object.values(priceEx.polish)[i][s]).toLocaleString());
     ['c1','c2','c3','c4'].forEach((id, i) => document.getElementById(id).innerText = "¥" + tax(Object.values(priceEx.coat)[i][s]).toLocaleString());
     
-    // オプション価格表示の更新
     updateOptionDisplay('o_cas_area', 'cas_std', s, isNew);
     updateOptionDisplay('o_resin_area', 'resin', s, isNew);
     updateOptionDisplay('o_gf_area', 'glass_front', s, isNew);
@@ -296,7 +324,6 @@ function updateOptionDisplay(elementId, optId, size, isNew) {
     const area = document.getElementById(elementId);
     let orig;
     if(optId === 'cas_std') {
-        // スタンダードセット：(樹脂 + 改定後のフロントガラス) - 5000円
         orig = (priceEx.opts.resin[size] + priceEx.opts.glass_front[size]) - 5000;
     } else {
         orig = priceEx.opts[optId][size];
