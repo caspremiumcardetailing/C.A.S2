@@ -113,9 +113,32 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 
     <div class="step" id="step3">
         <h3>03 コーティングを選択</h3>
-        <div class="option" onclick="select('coat','Basic')"><span class="price" id="c1">¥0</span>Basic<div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備え、日常のお手入れを劇的に楽にします。</div></div>
-        <div class="option" onclick="select('coat','Standard')"><span class="price" id="c2">¥0</span>Standard<div class="desc">【CAS推奨】高密度セラミックコーティング。ガラスを凌駕する膜厚と硬度で、深い艶と圧倒的な耐薬品性能を発揮します。</div></div>
-        <div class="option" onclick="select('coat','Premium')"><span class="price" id="c3">¥0</span>Premium<div class="desc">【最高峰】2層構造のセラミック。最高レベルの防汚性と、濡れたような官能的な光沢が長期間持続する贅沢なプランです。</div></div>
+        <div class="info-box">
+            <strong>なぜ安いのか？</strong><br>
+            大手ブランドの看板代や広告費を徹底排除。職人が厳選した「最高級溶剤」を自社仕入れすることで、<b>他店では15〜25万円するクオリティを適正価格で提供</b>しています。
+        </div>
+        
+        <div class="option" onclick="select('coat','Basic')">
+            <span class="price" id="c1">¥0</span>Basic
+            <div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備え、日常のお手入れを劇的に楽にします。</div>
+        </div>
+        
+        <div class="option" onclick="select('coat','Standard')">
+            <span class="price" id="c2">¥0</span>Standard
+            <div class="desc">【CAS推奨】高密度セラミック配合コート。従来のガラスを凌駕する膜厚と硬度で、深い艶と圧倒的な耐薬品性能を発揮します。</div>
+        </div>
+        
+        <div class="option" onclick="select('coat','Premium')">
+            <span class="price" id="c3">¥0</span>Premium
+            <div class="desc">【高耐久】2層構造のセラミック。最高レベルの防汚性と、濡れたような官能的な光沢が長期間持続する贅沢なプランです。</div>
+        </div>
+
+        <div class="option recommend-border" onclick="select('coat','Executive')">
+            <div class="pop-badge">最高峰</div>
+            <span class="price" id="c4">¥0</span>Executive
+            <div class="desc">【究極】セラミックの上を行く「ナノプレミアム」。<b>一般的には15〜25万円（ハイモースコート等）</b>とされる最高級ポリシラザン2層構造。C.A.S最高ランクの保護性能です。</div>
+        </div>
+
         <button class="prev" onclick="move(2)">戻る</button>
         <button class="next" onclick="move(4)">オプション選択へ</button>
     </div>
@@ -170,7 +193,8 @@ const priceEx = {
     coat: {
         Basic:    { S:20000, M:22000, L:24000, '2L':26000, '3L':28000, '4L':30000 },
         Standard: { S:30000, M:32000, L:34000, '2L':36000, '3L':38000, '4L':40000 },
-        Premium:  { S:40000, M:42000, L:44000, '2L':46000, '3L':48000, '4L':50000 }
+        Premium:  { S:40000, M:42000, L:44000, '2L':46000, '3L':48000, '4L':50000 },
+        Executive:{ S:60000, M:62000, L:64000, '2L':66000, '3L':68000, '4L':70000 }
     },
     opts: {
         resin: { S:8000, M:9000, L:10000, '2L':11000, '3L':12000, '4L':13000 },
@@ -259,12 +283,16 @@ function updatePrices() {
     let s = sel.size;
     if(!s) return;
     const isNew = document.getElementById('newcarCheck').checked;
+    
     document.getElementById('p1').innerText = "¥" + tax(priceEx.polish.Light[s]).toLocaleString();
     document.getElementById('p2').innerText = "¥" + tax(priceEx.polish.Standard[s]).toLocaleString();
     document.getElementById('p3').innerText = "¥" + tax(priceEx.polish.Premium[s]).toLocaleString();
+    
     document.getElementById('c1').innerText = "¥" + tax(priceEx.coat.Basic[s]).toLocaleString();
     document.getElementById('c2').innerText = "¥" + tax(priceEx.coat.Standard[s]).toLocaleString();
     document.getElementById('c3').innerText = "¥" + tax(priceEx.coat.Premium[s]).toLocaleString();
+    document.getElementById('c4').innerText = "¥" + tax(priceEx.coat.Executive[s]).toLocaleString();
+    
     updateOptionDisplay('o_cas_area', 'cas_std', s, isNew);
     updateOptionDisplay('o_resin_area', 'resin', s, isNew);
     updateOptionDisplay('o_gf_area', 'glass_front', s, isNew);
