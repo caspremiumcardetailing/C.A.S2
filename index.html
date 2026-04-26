@@ -57,7 +57,7 @@ input:checked + .slider-btn:before { transform:translateX(24px); }
 .price-container { float:right; text-align:right; }
 .old-price { color:var(--sub); text-decoration:line-through; font-size:0.85em; display:block; }
 .new-price { color:var(--newcar); font-weight:bold; display:block; }
-.desc{ font-size:0.8em; color:#aaa; margin-top:6px; line-height:1.4; }
+.desc{ font-size:0.82em; color:#aaa; margin-top:8px; line-height:1.5; }
 .guarantee-tag { color: var(--gold); font-size: 0.85em; font-weight: bold; margin-left: 5px; }
 
 .info-box { background: rgba(212, 175, 55, 0.1); border-left: 3px solid var(--gold); padding: 12px; margin-bottom: 15px; font-size: 0.85em; color: #eee; line-height: 1.5; border-radius: 4px; }
@@ -72,7 +72,7 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
 #importBadge { color:var(--gold); display:none; }
 #newcarBadge { color:var(--newcar); display:none; }
 
-.maint-list { font-size:0.8em; line-height:1.8; color:var(--sub); padding-left:18px; margin:10px 0 0 0; }
+.maint-list { font-size:0.85em; line-height:1.8; color:var(--sub); padding-left:18px; margin:10px 0 0 0; }
 </style>
 </head>
 <body>
@@ -149,32 +149,32 @@ button{ width:100%; padding:16px; margin-top:10px; border:none; border-radius:10
         <h3>03 コーティングを選択</h3>
         <div class="info-box">
             <strong>安心の全プラン「保証書」発行</strong><br>
-            車両保険対応の施工証明書を発行します。万が一の事故の際も、保険で再施工が可能です。
+            事故の際、車両保険でコーティングの再施工が受けられるよう「施工証明書」を発行します。
         </div>
         
         <div class="option" onclick="select('coat','Basic')">
             <span class="price" id="c1">¥0</span>
             Basic <span class="guarantee-tag">[1年保証]</span>
-            <div class="desc">標準的なガラスコーティング。十分な撥水性能を備えます。</div>
+            <div class="desc">標準的なガラスコーティング。十分な撥水性能と防汚性を備え、日常のお手入れを楽にします。</div>
         </div>
         
         <div class="option" onclick="select('coat','Standard')">
             <span class="price" id="c2">¥0</span>
             Standard <span class="guarantee-tag">[3年保証]</span>
-            <div class="desc"><b>高密度・無溶剤セラミック。</b>膜厚があり、深い艶が長期間持続します。</div>
+            <div class="desc"><b>高密度・無溶剤セラミック。</b>成分が蒸発せず100%塗装に定着。従来のガラスを凌駕する圧倒的な膜厚で、深い艶が長期間持続します。</div>
         </div>
         
         <div class="option" onclick="select('coat','Premium')">
             <span class="price" id="c3">¥0</span>
             Premium <span class="guarantee-tag">[5年保証]</span>
-            <div class="desc"><b>2層構造の無溶剤セラミック。</b>最高レベルの防汚性と官能的な光沢を実現。</div>
+            <div class="desc"><b>2層構造の無溶剤セラミック。</b>贅沢な2層の膜が最高レベルの防汚性を発揮。濡れたような深い光沢を長く楽しみたい方に。</div>
         </div>
 
         <div class="option gold-border" onclick="select('coat','Executive')">
             <div class="pop-badge gold-bg">最高峰</div>
             <span class="price" id="c4">¥0</span>
             Executive <span class="guarantee-tag">[5年超保証]</span>
-            <div class="desc">【究極】最高級ポリシラザン2層構造。C.A.S最高ランクの保護性能。</div>
+            <div class="desc"><b>【究極】最高級ポリシラザン2層構造。</b>C.A.Sが提供する最高ランクの保護性能。熱や紫外線からも塗装を極限まで守り抜きます。</div>
         </div>
         <button class="prev" onclick="move(2)">戻る</button>
         <button class="next" onclick="move(4)">オプション選択へ</button>
